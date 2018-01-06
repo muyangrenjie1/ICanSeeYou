@@ -64,8 +64,7 @@ namespace INCUclient
             GeneralControler.Startup_lV = Startup_lv;
             GeneralControler.PSS_rTB = PSS_rtb;
             GeneralControler.trv_HostView = trv_HostView;
-            //GeneralControler.txb_HostExploer = txt_hostexplorer;
-            //txt_hostexplorer.Text = GeneralControler.dosMsg;
+            GeneralControler.txb_HostExploer = txt_hostexplorer;
             GeneralControler.txb_MyExplorer = txt_myexplorer;
             GeneralControler.lbl_Message = lbl_Display;
             ICanSeeYou.Configure.Option option = new ICanSeeYou.Configure.Option();
@@ -792,18 +791,132 @@ namespace INCUclient
 
         private void 刷新进程toolStripMenuItem1_Click(object sender, EventArgs e)
         {
+
             TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
-            { 
+            {
+                GeneralControler.GetProcessInfo(tn.Tag);
             }
         }
 
         private void 结束任务toolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.process_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = process_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.KillProcess(tn.Tag, item.SubItems[1].Text);
 
+                }
+            }
+        }
+        /// <summary>
+        /// 系统服务的菜单项
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void 启动toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode  tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv .SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv .Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo (tn.Tag, item.SubItems[1].Text,"Start");
+
+                }
+            }
         }
 
-      
-       
+        private void 刷新toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                GeneralControler.getServiceInfo(tn.Tag,"","Freshen");
+            }
+        }
+
+        private void 停止toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[0].Text, "Stop");
+
+                }
+            }
+        }
+
+        private void 自动toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[0].Text, "Status_Auto");
+
+                }
+            }
+        }
+
+        private void 手动toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[0].Text, "Status_Demand");
+
+                }
+            }
+        }
+
+        private void 禁止toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[0].Text, "Status_Disabled");
+
+                }
+            }
+        }
+
+        private void 刷新toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                GeneralControler.getStartupInfo (tn.Tag, "", "Freshen");
+            }
+        }
+
+        private void 禁用toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (this.Service_lv.SelectedIndices.Count > 0)
+                {
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[0].Text, "Disabled");
+
+                }
+            }
+        }
     }
 }

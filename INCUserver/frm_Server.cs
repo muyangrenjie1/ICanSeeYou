@@ -97,6 +97,13 @@ namespace INCUserver
             }
         }
         /// <summary>
+        /// 检查是否开机启动，否则设置开机启动
+        /// </summary>
+        private void CheckIsAutoStartup()
+        {
+            
+        }
+        /// <summary>
         /// 关闭程序
         /// </summary>
         private void CloseServer()

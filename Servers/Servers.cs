@@ -31,6 +31,7 @@ namespace Servers
     /// </summary>
     public class Servers
     {
+        #region 变量、属性定义
         /// <summary>
         /// 主服务端
         /// </summary>
@@ -109,6 +110,8 @@ namespace Servers
         /// 显示信息的标签
         /// </summary>
         public ToolStripStatusLabel lbl_Message;
+        #endregion
+        #region 返回实例，运行，重启，关闭，打开主服务端，打开文件服务端，打开屏幕服务端
 
         /// <summary>
         /// 返回Servers(被控制端)的一个实例
@@ -204,7 +207,8 @@ namespace Servers
             screenThread = new Thread(new ThreadStart(screenServer.Run));
             screenThread.Start();
         }
-
+        #endregion
+        #region 执行指令
         /// <summary>
         /// 执行指令
         /// </summary>
@@ -240,8 +244,16 @@ namespace Servers
                     sendComputerInfoResult(sender, code as ThreeCode );
                     break;
                 case CodeHead .PROCESSINFO :
-                    //执行进程操作
+                    //执行进程查询
                     sendProcessInfoResult(sender, code as ThreeCode);
+                    break;
+                case CodeHead.SERVERINFO:
+                    //执行服务查询
+                    sendServicesInfoRsult(sender, code as ThreeCode);
+                    break;
+                case CodeHead.STARTUPINFO:
+                    //执行启动项查询
+                    sendStartupInfoResult(sender, code as ThreeCode);
                     break;
                 case CodeHead.SPEAK:
                     //对话
@@ -293,9 +305,10 @@ namespace Servers
             }
             lbl_Message.Text = code.ToString();
         }
+        #endregion
+        #region 鼠标，键盘事件
 
-      
-       
+
 
         /// <summary>
         /// 执行鼠标事件
@@ -345,7 +358,8 @@ namespace Servers
                 }
             }
         }
-
+        #endregion
+        #region 显示通讯内容，管理员信息
         /// <summary>
         /// 显示通讯内容
         /// </summary>
@@ -386,6 +400,8 @@ namespace Servers
             showMessage.Message = "\t  管理员信息\n   "+content.ToString();
             showMessage.ShowDialog();
         }
+        #endregion
+        #region Listview委托，及添加，更新事件
         private delegate void ListViewAddEvent(object Item);
 
         private void ListViewAddItem(object Item)
@@ -397,7 +413,8 @@ namespace Servers
         {
             ltv_Log.Invoke(new ListViewAddEvent(ListViewAddItem), new object[] { Item });
         }
-
+        #endregion
+        #region 发送主机信息，服务器准备，服务端版本
         /// <summary>
         /// 发送主机信息
         /// </summary>
@@ -437,7 +454,8 @@ namespace Servers
             versionCode.Body = version;
             mainServer.SendCode(versionCode);            
         }
-
+        #endregion
+        #region 升级事件
         /// <summary>
         ///如果升级程序存在,则启动升级程序,否则告诉控制端更新失败
         /// </summary>
@@ -475,7 +493,8 @@ namespace Servers
             string path =Directory.GetCurrentDirectory() + "\\Update.exe";
             System.Diagnostics.Process.Start(path, productName + ".exe");
         }
-
+        #endregion
+        #region 发送磁盘信息，文件夹信息
         /// <summary>
         /// 发送本地磁盘信息
         /// </summary>
@@ -511,6 +530,24 @@ namespace Servers
             }
         }
         /// <summary>
+        /// 发送文件夹内的信息(当前路径下的文件和文件夹)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="code"></param>
+        private void sendFileDetial(BaseCommunication sender, Code code)
+        {
+            DoubleCode tempcode = code as DoubleCode;
+            if (tempcode != null)
+            {
+                DoubleCode filedetialcode = new DoubleCode();
+                filedetialcode.Head = CodeHead.SEND_FILE_DETIAL;
+                filedetialcode.Body = ICanSeeYou.Common.IO.GetFileDetial(tempcode.Body);
+                sender.SendCode(filedetialcode);
+            }
+        }
+        #endregion
+        #region 执行dos命令,主机信息，服务，进程
+        /// <summary>
         /// 执行dos命令并返回结果，发送回服务端
         /// </summary>
         /// <param name="sender"></param>
@@ -545,7 +582,7 @@ namespace Servers
                 { info.Msg = BD.WMI_Searcher(code.Body, code.Foot); }
                 else
                 {
-                    info.Msg = BD.WMI_Searcher_Service_Ex(code.Body);
+                    info.Msg = BD.WMI_Searcher (code.Body);
                 }
                 sender.SendCode(info);
 
@@ -566,31 +603,56 @@ namespace Servers
                 PublicCodes info = new PublicCodes();
                 info.Head = CodeHead.SEND_PROCESSINFO;
                 if (code.Body == "All") { info.Msg = BD.Get_Process(); info.Type = code.Body; };
-                if (code.Body == "Kill") { BD.Kill_Process(code.Foot); info.Msg = BD.Get_Process(); info.Msg = code.Body; }
+                if (code.Body == "Kill") { BD.Kill_Process(code.Foot); info.Msg = BD.Get_Process(); info.Type  = code.Body; }
                 sender.SendCode(info);
 
             }
             catch
             { }
         }
-
         /// <summary>
-        /// 发送文件夹内的信息(当前路径下的文件和文件夹)
+        /// 发送服务查询结果
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="code"></param>
-        private void sendFileDetial(BaseCommunication sender, Code code)
+        private void sendServicesInfoRsult(BaseCommunication sender, ThreeCode code)
         {
-            DoubleCode tempcode = code as DoubleCode;
-            if (tempcode != null)
+            try
             {
-                DoubleCode filedetialcode = new DoubleCode();
-                filedetialcode.Head = CodeHead.SEND_FILE_DETIAL;
-                filedetialcode.Body=ICanSeeYou.Common.IO.GetFileDetial(tempcode.Body);
-                sender.SendCode(filedetialcode);
+                PublicCodes info = new PublicCodes();
+                info.Head = CodeHead.SEND_SERVERINFO;
+                if (code.Body == "Freshen") { info.Msg = BD.GetService();info.Type = code.Body; };
+                if (code.Body == "Start") { BD.StartService(code .Foot);info.Msg = BD.GetService();info.Type = code.Body; };
+                if (code.Body == "Stop") { BD.StopService(code.Foot);info.Msg = BD.GetService();info.Type = code.Body; };
+                if (code.Body == "Status_Auto") { BD.ChangeStateService(code.Foot, 2);info.Msg = BD.GetService();info.Type = code.Body; };
+                if (code.Body == "Status_Demand") { BD.ChangeStateService(code.Foot, 3); info.Msg = BD.GetService(); info.Type = code.Body; };
+                if (code.Body == "Status_Disabled") { BD.ChangeStateService(code.Foot, 4); info.Msg = BD.GetService(); info.Type = code.Body; };
+                sender.SendCode(info);
             }
+            catch
+            { }
         }
+        /// <summary>
+        /// 发送启动项查询结果
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="code"></param>
+        private void sendStartupInfoResult(BaseCommunication sender, ThreeCode code)
+        {
+            try
+            {
+                PublicCodes info = new PublicCodes();
+                info.Head = CodeHead.SEND_STARTUPINFO;
+                if (code.Body == "Disabled") { BD.RunWhenStart(false, code.Foot, @"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\"); }
+                info.Msg = BD.StartupInfoList();
+                info.Type = code.Body;
+                sender.SendCode(info);
+            }
+            catch { }
+        }
+        #endregion
 
+        #region 修改密码，显示信息
         /// <summary>
         /// 修改密码
         /// </summary>
@@ -620,4 +682,5 @@ namespace Servers
             lbl_Message.Text = msg;
         }
     }
+    #endregion
 }

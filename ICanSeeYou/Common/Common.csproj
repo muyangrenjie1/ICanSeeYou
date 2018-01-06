@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -77,6 +77,8 @@
     <Compile Include="Configure\Option.cs" />
     <Compile Include="Configure\PassWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows\AutoStartup.cs" />
+    <Compile Include="Windows\Register.cs" />
     <Compile Include="Windows\ScreenCapture.cs" />
     <Compile Include="Windows\WindowsManager.cs" />
     <Compile Include="Windows\DB.cs" />
@@ -84,7 +86,13 @@
   <ItemGroup>
     <Reference Include="IPAddressControlLib, Version=1.1.3101.102, Culture=neutral, PublicKeyToken=9e33ee4849f4bef9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\IPAddressControlLib.dll</HintPath>
+      <HintPath>bin\Release\IPAddressControlLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Server">
+      <HintPath>..\..\Server\bin\Release\Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Servers">
+      <HintPath>..\..\Servers\bin\Release\Servers.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -94,5 +102,16 @@
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
 </Project>

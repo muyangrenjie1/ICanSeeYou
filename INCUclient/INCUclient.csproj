@@ -44,28 +44,15 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Clients\bin\Debug\Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Clients, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Clients\bin\Release\Clients.dll</HintPath>
-    </Reference>
-    <Reference Include="ICanSeeYou, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ICanSeeYou\Common\bin\Release\ICanSeeYou.dll</HintPath>
-    </Reference>
-    <Reference Include="IPAddressControlLib, Version=1.0.2620.17913, Culture=neutral, PublicKeyToken=0c70f2ee404bdebd, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\IPAddressControlTest\bin\Debug\IPAddressControlLib.dll</HintPath>
+    <Reference Include="IPAddressControlLib">
+      <HintPath>..\ICanSeeYou\Common\bin\Release\IPAddressControlLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -193,6 +180,20 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clients\Clients.csproj">
+      <Project>{b0ac1ccd-c1fc-477c-b1a1-c62f36c7f4ba}</Project>
+      <Name>Clients</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Client\Client.csproj">
+      <Project>{587f35fc-5831-474c-af8e-0eefd9eec5ee}</Project>
+      <Name>Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICanSeeYou\Common\Common.csproj">
+      <Project>{025628c8-0fbd-4b13-bec4-38cb800cb670}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

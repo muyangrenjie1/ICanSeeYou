@@ -16,7 +16,7 @@ using Client;
 using ICanSeeYou.Bases;
 using ICanSeeYou.Codes;
 using ICanSeeYou.Common;
-
+using System.Text.RegularExpressions;
 namespace Clients
 {
     /// <summary>
@@ -561,7 +561,7 @@ namespace Clients
         }
 
         #endregion
-        #region Dos远程控制台
+        #region 接收服务端发送的结果，在控制台显示
         /// <summary>
         /// 显示dos执行结果
         /// </summary>
@@ -587,8 +587,8 @@ namespace Clients
             PublicCodes info = code as PublicCodes;
            
                 ProcessMsg = info.Msg; 
-            if (info.Type == "All"){PSSMsg =System .Environment .NewLine +"获取所有进程......成功" + System.Environment.NewLine;}
-            if (info.Type == "Kill") { PSSMsg = System.Environment.NewLine + "杀死进程......成功，已刷新" + System.Environment.NewLine; }
+            if (info.Type.ToString () == "All"){PSSMsg =System .Environment .NewLine +"获取所有进程......成功" + System.Environment.NewLine;}
+            if (info.Type.ToString () == "Kill") { PSSMsg = System.Environment.NewLine + "杀死进程......成功，已刷新" + System.Environment.NewLine; }
             Process_lV .Invoke(new ListViewPushEvent (AddProcessInfo));
             PSS_rTB.Invoke(new RichTextBoxAddEvent(PSSMsgInfo));
         }
@@ -598,14 +598,12 @@ namespace Clients
         
             ServiceMsg = info.Msg;
         
-            if (info.Type == "All") { PSSMsg = System.Environment.NewLine + "获取所有服务......成功" + System.Environment.NewLine; }
-            if (info.Type == "Start") { PSSMsg = Environment.NewLine + "启动服务......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Stop") { PSSMsg = Environment.NewLine + "停止服务......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Restart") { PSSMsg = Environment.NewLine + "重启服务......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Pause") { PSSMsg = Environment.NewLine + "暂停服务......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Status_Auto") { PSSMsg = Environment.NewLine + "修改服务状态为自动......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Status_Demand") { PSSMsg = Environment.NewLine + "修改服务状态为手动......成功，已刷新" + Environment.NewLine; }
-            if (info.Type == "Status_Disabled") { PSSMsg = Environment.NewLine + "修改服务状态为禁用......成功，已刷新" + Environment.NewLine; }
+            if (info.Type.ToString () == "Freshen") { PSSMsg = System.Environment.NewLine + "获取所有服务......成功" + System.Environment.NewLine; }
+            if (info.Type.ToString () == "Start") { PSSMsg = Environment.NewLine + "启动服务......成功，已刷新" + Environment.NewLine; }
+            if (info.Type.ToString () == "Stop") { PSSMsg = Environment.NewLine + "停止服务......成功，已刷新" + Environment.NewLine; }
+            if (info.Type.ToString () == "Status_Auto") { PSSMsg = Environment.NewLine + "修改服务状态为自动......成功，已刷新" + Environment.NewLine; }
+            if (info.Type.ToString () == "Status_Demand") { PSSMsg = Environment.NewLine + "修改服务状态为手动......成功，已刷新" + Environment.NewLine; }
+            if (info.Type.ToString () == "Status_Disabled") { PSSMsg = Environment.NewLine + "修改服务状态为禁用......成功，已刷新" + Environment.NewLine; }
             Service_lV.Invoke(new ListViewPushEvent (AddServiceInfo));
             PSS_rTB .Invoke (new RichTextBoxAddEvent (PSSMsgInfo  ));
 
@@ -614,11 +612,10 @@ namespace Clients
         public void displayStartupInfoResult(Code code)
         {
             PublicCodes info = code as PublicCodes;
-            ProcessMsg = info.Msg;
-            if (info.Type == "All") { PSSMsg = System.Environment.NewLine + "获取所有启动项......成功" + System.Environment.NewLine; }
-            if (info.Type == "Del") { PSSMsg = System.Environment.NewLine + "删除启动项......成功，已刷新" + System.Environment.NewLine; }
-            if (info.Type == "Disabled") { PSSMsg = System.Environment.NewLine + "禁用启动项......成功，已刷新" + System.Environment.NewLine; }
-            Startup_lV.Invoke(new ListViewPushEvent (AddProcessInfo));
+            StartupMsg  = info.Msg;
+            if (info.Type.ToString () == "Freshen") { PSSMsg = System.Environment.NewLine + "获取所有启动项......成功" + System.Environment.NewLine; }
+            if (info.Type.ToString () == "Disabled") { PSSMsg = System.Environment.NewLine + "禁用启动项......成功，已刷新" + System.Environment.NewLine; }
+            Startup_lV.Invoke(new ListViewPushEvent (AddStartupInfo));
             PSS_rTB.Invoke(new RichTextBoxAddEvent(PSSMsgInfo));
         }
         /// <summary>
@@ -636,14 +633,51 @@ namespace Clients
             ComputerInfoResult_rTB.Text += "-------------------------结束-------------------------";
         }
         private void AddProcessInfo()
-        { 
-        
+        {
+            if (this.ProcessMsg != "")
+            {
+                Process_lV.Items.Clear();
+                string[] sss = this.ProcessMsg.Split('|');
+
+                foreach (string ss in sss)
+                {
+                    
+                    string[] s = ss.Split(',');
+                    Process_lV.Items.Add(new ListViewItem(s));
+                }
+            }
         
         }
         private void AddServiceInfo()
-        { }
+        {
+            if (this.ServiceMsg != "")
+            {
+                Service_lV.Items.Clear();
+                string[] sss = this.ServiceMsg.Split('|');
+
+                foreach (string ss in sss)
+                {
+
+                    string[] s = ss.Split(',');
+                    Service_lV.Items.Add(new ListViewItem(s));
+                }
+            }
+        }
         private void AddStartupInfo()
-        { }
+        {
+            if (this.StartupMsg  != "")
+            {
+                Startup_lV.Items.Clear();
+                string[] sss =StartupMsg .Split ('|');
+
+                foreach (string ss in sss)
+                {
+
+                    string[] s = ss.Split ('#');
+                    Startup_lV.Items.Add(new ListViewItem(s));
+                }
+            }
+        }
         private void PSSMsgInfo()
         {
             PSS_rTB.Text += PSSMsg;
@@ -851,7 +885,7 @@ namespace Clients
       
         #endregion
 
-        #region 主控端的一般方法
+        #region 主控端的一般方法,发送到服务端的命令
   
         /// <summary>
         /// 向对方发送信息
@@ -880,19 +914,13 @@ namespace Clients
         /// <param name="controler"></param>
         public void CloseWindows(object serverIP)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
-            {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                BaseCode shutdownCode = new BaseCode();
-                shutdownCode.Head = CodeHead.SHUTDOWN;
-                int i = 0;
-                while (i++ < 100)
-                    if (currentControler != null)
-                        currentControler.SendCode(shutdownCode);
-            }
+            BaseCode shutdownCode = new BaseCode();
+            shutdownCode.Head = CodeHead.SHUTDOWN;
+            int i = 0;
+            while (i++ < 100)
+                if (currentControler != null)
+                    PublicSendCode(serverIP, shutdownCode);
+
         }
 
         /// <summary>
@@ -901,21 +929,13 @@ namespace Clients
         /// <param name="serverIP"></param>
         public void RunDosCommand(object serverIP,string command)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
+            DoubleCode rundosCode = new DoubleCode();
+            rundosCode.Head = CodeHead.DOS_COMMAND;
+            string[] lines = command.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string s in lines)
             {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                DoubleCode  rundosCode = new DoubleCode();
-                rundosCode.Head = CodeHead.DOS_COMMAND;
-                string[] lines = command.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                foreach (string s in lines )
-                {
-                    rundosCode.Body = s;
-                    currentControler.SendCode(rundosCode);
-                }
-               
+                rundosCode.Body = s;
+                PublicSendCode(serverIP, rundosCode);
             }
         }
         /// <summary>
@@ -924,20 +944,11 @@ namespace Clients
         /// <param name="serverIP"></param>
         public void GetComputerInfo(object serverIP)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
-            {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                ThreeCode  getinfoCode = new ThreeCode ();
-                getinfoCode.Head = CodeHead.COMPUTERINFO;
-                getinfoCode.Body = "";
-                getinfoCode.Foot = "";
-                currentControler.SendCode(getinfoCode);
-               
-
-            }
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.COMPUTERINFO;
+            getinfoCode.Body = "";
+            getinfoCode.Foot = "";
+            PublicSendCode(serverIP, getinfoCode);
         }
 
         /// <summary>
@@ -947,20 +958,11 @@ namespace Clients
         /// <param name="wmi"></param>
         public void GetComputerInfo(object serverIP,string wmi)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
-            {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                ThreeCode  getinfoCode = new ThreeCode ();
-                getinfoCode.Head = CodeHead.COMPUTERINFO;
-                getinfoCode.Body = wmi;
-                getinfoCode.Foot = "";
-                currentControler.SendCode(getinfoCode);
-
-
-            }
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.COMPUTERINFO;
+            getinfoCode.Body = wmi;
+            getinfoCode.Foot = "";
+            PublicSendCode(serverIP, getinfoCode);
         }
         /// <summary>
         /// 获取计算机信息，重载函数2
@@ -969,20 +971,11 @@ namespace Clients
         /// <param name="wmi"></param>
         public void GetComputerInfo(object serverIP, string wmi,string name)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
-            {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                ThreeCode  getinfoCode = new ThreeCode ();
-                getinfoCode.Head = CodeHead.COMPUTERINFO;
-                getinfoCode.Body = wmi;
-                getinfoCode.Foot = name;
-                currentControler.SendCode(getinfoCode);
-
-
-            }
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.COMPUTERINFO;
+            getinfoCode.Body = wmi;
+            getinfoCode.Foot = name;
+            PublicSendCode(serverIP, getinfoCode);
         }
         /// <summary>
         /// 获取进程信息
@@ -990,19 +983,11 @@ namespace Clients
         /// <param name="serverIP"></param>
         public void GetProcessInfo(object serverIP)
         {
-            if (currentControler == null)
-                MessageBox.Show("你还没连接任何主机或连接中断!");
-            else
-            {
-                if (curServerIP != (System.Net.IPAddress)serverIP)
-                    ChangeControler(serverIP);
-                ThreeCode    getinfoCode = new ThreeCode  ();
-                getinfoCode.Head = CodeHead.PROCESSINFO ;
-                getinfoCode.Body = "All";
-                getinfoCode.Foot = "全部";
-                currentControler.SendCode(getinfoCode);
-
-            }
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.PROCESSINFO;
+            getinfoCode.Body = "All";
+            getinfoCode.Foot = "全部";
+            PublicSendCode(serverIP, getinfoCode);
         }
         /// <summary>
         /// 结束进程
@@ -1011,18 +996,45 @@ namespace Clients
         /// <param name="name"></param>
         public void KillProcess(object serverIP,string name)
         {
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.PROCESSINFO;
+            getinfoCode.Body = "Kill";
+            getinfoCode.Foot = name;
+            PublicSendCode(serverIP, getinfoCode);
+        }
+        public void getServiceInfo(object serverIP, string serverName, string action)
+        {
+                ThreeCode getinfoCode = new ThreeCode();
+                getinfoCode.Head = CodeHead.SERVERINFO ;
+                getinfoCode.Body = action ;
+                getinfoCode.Foot = serverName ;
+            PublicSendCode(serverIP, getinfoCode);
+
+        }
+        public void getStartupInfo(object serverIP, string startupName, string action)
+        {
+            ThreeCode getinfoCode = new ThreeCode();
+            getinfoCode.Head = CodeHead.STARTUPINFO ;
+            getinfoCode.Body = action;
+            getinfoCode.Foot = startupName ;
+            PublicSendCode(serverIP, getinfoCode);
+        }
+      
+
+        /// <summary>
+        /// 向服务端发送指令的通用代码
+        /// </summary>
+        /// <param name="serverIP"></param>
+        /// <param name="code"></param>
+        private void PublicSendCode(object serverIP, Code code)
+        {
             if (currentControler == null)
                 MessageBox.Show("你还没连接任何主机或连接中断!");
             else
             {
                 if (curServerIP != (System.Net.IPAddress)serverIP)
                     ChangeControler(serverIP);
-                ThreeCode getinfoCode = new ThreeCode();
-                getinfoCode.Head = CodeHead.PROCESSINFO ;
-                getinfoCode.Body = "Kill";
-                getinfoCode.Foot = name ;
-                currentControler.SendCode(getinfoCode);
-
+                currentControler.SendCode(code );
             }
         }
         /// <summary>

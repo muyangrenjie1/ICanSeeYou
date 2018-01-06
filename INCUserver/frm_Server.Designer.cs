@@ -64,22 +64,22 @@
             this.skinTabControl1 = new CCWin.SkinControl.SkinTabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
             this.tabPage13 = new System.Windows.Forms.TabPage();
-            this.col_Datetime = new System.Windows.Forms.ColumnHeader();
-            this.col_IP = new System.Windows.Forms.ColumnHeader();
-            this.col_Event = new System.Windows.Forms.ColumnHeader();
-            this.ltv_Log = new System.Windows.Forms.ListView();
             this.grb_Log = new System.Windows.Forms.GroupBox();
+            this.ltv_Log = new System.Windows.Forms.ListView();
+            this.col_Datetime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_IP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_Event = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage14 = new System.Windows.Forms.TabPage();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage15 = new System.Windows.Forms.TabPage();
             this.tabPage16 = new System.Windows.Forms.TabPage();
             this.tabPage17 = new System.Windows.Forms.TabPage();
@@ -100,6 +100,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lbl_Message});
             this.statusStrip1.Location = new System.Drawing.Point(4, 403);
@@ -123,18 +124,19 @@
             // 
             // cnm_notifyIcon
             // 
+            this.cnm_notifyIcon.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cnm_notifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开OToolStripMenuItem3,
             this.关于AToolStripMenuItem1,
             this.退出EToolStripMenuItem1});
             this.cnm_notifyIcon.Name = "cnm_notifyIcon";
-            this.cnm_notifyIcon.Size = new System.Drawing.Size(131, 76);
+            this.cnm_notifyIcon.Size = new System.Drawing.Size(137, 82);
             // 
             // 打开OToolStripMenuItem3
             // 
             this.打开OToolStripMenuItem3.Image = global::INCUserver.Properties.Resources.Ice;
             this.打开OToolStripMenuItem3.Name = "打开OToolStripMenuItem3";
-            this.打开OToolStripMenuItem3.Size = new System.Drawing.Size(130, 24);
+            this.打开OToolStripMenuItem3.Size = new System.Drawing.Size(136, 26);
             this.打开OToolStripMenuItem3.Text = "打开(&O)";
             this.打开OToolStripMenuItem3.Click += new System.EventHandler(this.打开OToolStripMenuItem3_Click);
             // 
@@ -142,7 +144,7 @@
             // 
             this.关于AToolStripMenuItem1.Image = global::INCUserver.Properties.Resources.info;
             this.关于AToolStripMenuItem1.Name = "关于AToolStripMenuItem1";
-            this.关于AToolStripMenuItem1.Size = new System.Drawing.Size(130, 24);
+            this.关于AToolStripMenuItem1.Size = new System.Drawing.Size(136, 26);
             this.关于AToolStripMenuItem1.Text = "关于(&A)";
             this.关于AToolStripMenuItem1.Click += new System.EventHandler(this.关于AToolStripMenuItem1_Click);
             // 
@@ -150,7 +152,7 @@
             // 
             this.退出EToolStripMenuItem1.Image = global::INCUserver.Properties.Resources.Exit;
             this.退出EToolStripMenuItem1.Name = "退出EToolStripMenuItem1";
-            this.退出EToolStripMenuItem1.Size = new System.Drawing.Size(130, 24);
+            this.退出EToolStripMenuItem1.Size = new System.Drawing.Size(136, 26);
             this.退出EToolStripMenuItem1.Text = "退出(&E)";
             this.退出EToolStripMenuItem1.Click += new System.EventHandler(this.退出EToolStripMenuItem1_Click);
             // 
@@ -164,7 +166,7 @@
             animation1.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicCoeff")));
             animation1.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation1.MosaicShift")));
             animation1.MosaicSize = 0;
-            animation1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            animation1.Padding = new System.Windows.Forms.Padding(0);
             animation1.RotateCoeff = 0F;
             animation1.RotateLimit = 0F;
             animation1.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation1.ScaleCoeff")));
@@ -223,10 +225,35 @@
             this.tabPage13.Location = new System.Drawing.Point(0, 75);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage13.Size = new System.Drawing.Size(1178, 300);
             this.tabPage13.TabIndex = 1;
             this.tabPage13.Text = "远程消息";
             this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // grb_Log
+            // 
+            this.grb_Log.Controls.Add(this.ltv_Log);
+            this.grb_Log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grb_Log.Location = new System.Drawing.Point(3, 3);
+            this.grb_Log.Name = "grb_Log";
+            this.grb_Log.Size = new System.Drawing.Size(1172, 294);
+            this.grb_Log.TabIndex = 4;
+            this.grb_Log.TabStop = false;
+            this.grb_Log.Text = "操作记录";
+            // 
+            // ltv_Log
+            // 
+            this.ltv_Log.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.col_Datetime,
+            this.col_IP,
+            this.col_Event});
+            this.ltv_Log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ltv_Log.Location = new System.Drawing.Point(3, 21);
+            this.ltv_Log.Name = "ltv_Log";
+            this.ltv_Log.Size = new System.Drawing.Size(1166, 270);
+            this.ltv_Log.TabIndex = 1;
+            this.ltv_Log.UseCompatibleStateImageBehavior = false;
+            this.ltv_Log.View = System.Windows.Forms.View.Details;
             // 
             // col_Datetime
             // 
@@ -243,31 +270,6 @@
             this.col_Event.Text = "操作";
             this.col_Event.Width = 291;
             // 
-            // ltv_Log
-            // 
-            this.ltv_Log.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.col_Datetime,
-            this.col_IP,
-            this.col_Event});
-            this.ltv_Log.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ltv_Log.Location = new System.Drawing.Point(3, 98);
-            this.ltv_Log.Name = "ltv_Log";
-            this.ltv_Log.Size = new System.Drawing.Size(1150, 131);
-            this.ltv_Log.TabIndex = 1;
-            this.ltv_Log.UseCompatibleStateImageBehavior = false;
-            this.ltv_Log.View = System.Windows.Forms.View.Details;
-            // 
-            // grb_Log
-            // 
-            this.grb_Log.Controls.Add(this.ltv_Log);
-            this.grb_Log.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grb_Log.Location = new System.Drawing.Point(3, 3);
-            this.grb_Log.Name = "grb_Log";
-            this.grb_Log.Size = new System.Drawing.Size(1156, 232);
-            this.grb_Log.TabIndex = 4;
-            this.grb_Log.TabStop = false;
-            this.grb_Log.Text = "操作记录";
-            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.tabControl2);
@@ -281,10 +283,12 @@
             // 
             // tabControl2
             // 
+            this.tabControl2.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Controls.Add(this.tabPage14);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Multiline = true;
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1178, 300);
@@ -294,10 +298,10 @@
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.listView2);
-            this.tabPage10.Location = new System.Drawing.Point(4, 25);
+            this.tabPage10.Location = new System.Drawing.Point(4, 28);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(1170, 271);
+            this.tabPage10.Size = new System.Drawing.Size(1170, 268);
             this.tabPage10.TabIndex = 0;
             this.tabPage10.Text = "内置应用";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -345,7 +349,7 @@
             listViewItem12});
             this.listView2.Location = new System.Drawing.Point(3, 3);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(1164, 265);
+            this.listView2.Size = new System.Drawing.Size(1164, 262);
             this.listView2.TabIndex = 0;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
@@ -360,10 +364,10 @@
             // tabPage14
             // 
             this.tabPage14.Controls.Add(this.listView1);
-            this.tabPage14.Location = new System.Drawing.Point(4, 25);
+            this.tabPage14.Location = new System.Drawing.Point(4, 28);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1163, 31);
+            this.tabPage14.Size = new System.Drawing.Size(1170, 268);
             this.tabPage14.TabIndex = 1;
             this.tabPage14.Text = "外置应用";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -398,7 +402,7 @@
             listViewItem17});
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1157, 25);
+            this.listView1.Size = new System.Drawing.Size(1164, 262);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -420,7 +424,7 @@
             this.tabPage15.Location = new System.Drawing.Point(0, 75);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage15.Size = new System.Drawing.Size(1178, 300);
             this.tabPage15.TabIndex = 3;
             this.tabPage15.Text = "我的网盘";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -430,7 +434,7 @@
             this.tabPage16.ImageIndex = 2;
             this.tabPage16.Location = new System.Drawing.Point(0, 75);
             this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage16.Size = new System.Drawing.Size(200, 25);
             this.tabPage16.TabIndex = 4;
             this.tabPage16.Text = "我的共享";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -440,7 +444,7 @@
             this.tabPage17.ImageIndex = 5;
             this.tabPage17.Location = new System.Drawing.Point(0, 75);
             this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage17.Size = new System.Drawing.Size(200, 25);
             this.tabPage17.TabIndex = 5;
             this.tabPage17.Text = "内网资源";
             this.tabPage17.UseVisualStyleBackColor = true;
@@ -450,7 +454,7 @@
             this.tabPage18.ImageIndex = 8;
             this.tabPage18.Location = new System.Drawing.Point(0, 75);
             this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage18.Size = new System.Drawing.Size(200, 25);
             this.tabPage18.TabIndex = 6;
             this.tabPage18.Text = "一键登录";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -460,7 +464,7 @@
             this.tabPage19.ImageIndex = 10;
             this.tabPage19.Location = new System.Drawing.Point(0, 75);
             this.tabPage19.Name = "tabPage19";
-            this.tabPage19.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage19.Size = new System.Drawing.Size(200, 25);
             this.tabPage19.TabIndex = 7;
             this.tabPage19.Text = "安全U盘";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -470,7 +474,7 @@
             this.tabPage20.ImageIndex = 7;
             this.tabPage20.Location = new System.Drawing.Point(0, 75);
             this.tabPage20.Name = "tabPage20";
-            this.tabPage20.Size = new System.Drawing.Size(1162, 238);
+            this.tabPage20.Size = new System.Drawing.Size(200, 25);
             this.tabPage20.TabIndex = 8;
             this.tabPage20.Text = "我的收藏";
             this.tabPage20.UseVisualStyleBackColor = true;

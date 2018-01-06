@@ -30,24 +30,24 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSkin, Version=10.23.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="CSkin">
+      <HintPath>..\ICanSeeYou\Common\bin\Release\CSkin.dll</HintPath>
+    </Reference>
     <Reference Include="ICanSeeYou, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ICanSeeYou\Common\bin\Release\ICanSeeYou.dll</HintPath>
     </Reference>
-    <Reference Include="IPAddressControlLib, Version=1.1.3101.102, Culture=neutral, PublicKeyToken=9e33ee4849f4bef9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\INCUclient\bin\Debug\IPAddressControlLib.dll</HintPath>
+    <Reference Include="IPAddressControlLib">
+      <HintPath>..\ICanSeeYou\Common\bin\Release\IPAddressControlLib.dll</HintPath>
     </Reference>
-    <Reference Include="Servers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Servers">
       <HintPath>..\Servers\bin\Release\Servers.dll</HintPath>
     </Reference>
     <Reference Include="System" />
