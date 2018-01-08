@@ -8,7 +8,7 @@ using Microsoft.Win32;
 /// </summary>
 namespace ICanSeeYou.Windows
 {
-    class AutoStartup
+    public  class AutoStartup
     {
         string targetpath = Environment.CurrentDirectory + "INCUserver.exe";
         string appname = "税务小助手";

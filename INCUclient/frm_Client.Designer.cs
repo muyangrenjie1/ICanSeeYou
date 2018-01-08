@@ -30,10 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Client));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("所有主机");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("所有主机");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("HKEY_CLASSES_ROOT");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_USER");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("HKEY_LOCAL_MACHINE");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("HKEY_USERS");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("HKEY_CURRENT_CONFIG");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("远程注册表根目录", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.cnm_HostParentView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.增加主机NToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.移除所有RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +56,8 @@
             this.移除MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sts_Main = new System.Windows.Forms.StatusStrip();
             this.lbl_Display = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.CurrentIP_tSSL = new System.Windows.Forms.ToolStripStatusLabel();
             this.mnu_Main = new System.Windows.Forms.MenuStrip();
             this.连接CtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.指定主机SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -148,6 +161,51 @@
             this.DosCommand_bn = new System.Windows.Forms.Button();
             this.tab_Soft = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.Script_rtb = new System.Windows.Forms.RichTextBox();
+            this.Script_IsWaiting_cB = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Script_paramerer_tB = new System.Windows.Forms.TextBox();
+            this.ScriptFileOpenButton = new System.Windows.Forms.Button();
+            this.ScriptSendButton = new System.Windows.Forms.Button();
+            this.Script_filepath_tB = new System.Windows.Forms.TextBox();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.Script_bat = new System.Windows.Forms.TabPage();
+            this.splitContainer9 = new System.Windows.Forms.SplitContainer();
+            this.ScriptBatEdit_rtb = new System.Windows.Forms.RichTextBox();
+            this.Script_bat_IsWaiting_cB = new System.Windows.Forms.CheckBox();
+            this.ScriptBatClearButton = new System.Windows.Forms.Button();
+            this.ScriptBatCheckButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Script_bat_paramerer_tB = new System.Windows.Forms.TextBox();
+            this.ScriptBatSendButton = new System.Windows.Forms.Button();
+            this.ScriptBatLocalTestButton = new System.Windows.Forms.Button();
+            this.ScriptBatClipboardButton = new System.Windows.Forms.Button();
+            this.Script_rar = new System.Windows.Forms.TabPage();
+            this.splitContainer10 = new System.Windows.Forms.SplitContainer();
+            this.ScriptRARLocalTestButton = new System.Windows.Forms.Button();
+            this.ScriptRarSend = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ScriptRAR_pamarerer_tB = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ScriptRAR3_cB = new System.Windows.Forms.CheckBox();
+            this.ScriptRAR2_cB = new System.Windows.Forms.CheckBox();
+            this.ScriptRAR1_cB = new System.Windows.Forms.CheckBox();
+            this.splitContainer11 = new System.Windows.Forms.SplitContainer();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.ScriptRARFile1_dGV = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ScriptRARFile2_dGV = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tab_process = new System.Windows.Forms.TabPage();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.PSS_rtb = new System.Windows.Forms.RichTextBox();
@@ -165,15 +223,46 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Service_lv = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ctm_secvice = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.刷新toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.启动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.停止toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.启动类型toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.自动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.手动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.禁止toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.Startup_lv = new System.Windows.Forms.ListView();
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ctm_startup = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.刷新toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.禁用toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tab_Regedit = new System.Windows.Forms.TabPage();
+            this.splitContainer12 = new System.Windows.Forms.SplitContainer();
+            this.Reg_tV = new System.Windows.Forms.TreeView();
+            this.splitContainer13 = new System.Windows.Forms.SplitContainer();
+            this.Reg_lV = new System.Windows.Forms.ListView();
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.splitContainer14 = new System.Windows.Forms.SplitContainer();
+            this.Reg_rTB = new CCWin.SkinControl.RtfRichTextBox();
+            this.RegImportButton = new System.Windows.Forms.Button();
+            this.RegDirDelButton = new System.Windows.Forms.Button();
+            this.RegDirModiButton = new System.Windows.Forms.Button();
+            this.RegDirAddButton = new System.Windows.Forms.Button();
+            this.RegKeyDelButton = new System.Windows.Forms.Button();
+            this.RegKeyAddButton = new System.Windows.Forms.Button();
+            this.RegKeyModiButton = new System.Windows.Forms.Button();
+            this.RegKeyOutportButton = new System.Windows.Forms.Button();
             this.tab_StatusScan = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -192,20 +281,7 @@
             this.关闭连接CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于AToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.退出EToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctm_secvice = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.启动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.停止toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.启动类型toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.自动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.手动toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.禁止toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.刷新toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctm_startup = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.刷新toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.禁用toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.oFD_Script = new System.Windows.Forms.OpenFileDialog();
             this.cnm_HostParentView.SuspendLayout();
             this.cnm_HostView.SuspendLayout();
             this.sts_Main.SuspendLayout();
@@ -251,7 +327,29 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.tab_Soft.SuspendLayout();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.splitContainer8.Panel1.SuspendLayout();
+            this.splitContainer8.Panel2.SuspendLayout();
+            this.splitContainer8.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.Script_bat.SuspendLayout();
+            this.splitContainer9.Panel1.SuspendLayout();
+            this.splitContainer9.Panel2.SuspendLayout();
+            this.splitContainer9.SuspendLayout();
+            this.Script_rar.SuspendLayout();
+            this.splitContainer10.Panel1.SuspendLayout();
+            this.splitContainer10.Panel2.SuspendLayout();
+            this.splitContainer10.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.splitContainer11.Panel1.SuspendLayout();
+            this.splitContainer11.Panel2.SuspendLayout();
+            this.splitContainer11.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptRARFile1_dGV)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptRARFile2_dGV)).BeginInit();
             this.tab_process.SuspendLayout();
             this.splitContainer7.Panel1.SuspendLayout();
             this.splitContainer7.Panel2.SuspendLayout();
@@ -260,7 +358,19 @@
             this.tabPage1.SuspendLayout();
             this.ctm_process.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.ctm_secvice.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.ctm_startup.SuspendLayout();
+            this.tab_Regedit.SuspendLayout();
+            this.splitContainer12.Panel1.SuspendLayout();
+            this.splitContainer12.Panel2.SuspendLayout();
+            this.splitContainer12.SuspendLayout();
+            this.splitContainer13.Panel1.SuspendLayout();
+            this.splitContainer13.Panel2.SuspendLayout();
+            this.splitContainer13.SuspendLayout();
+            this.splitContainer14.Panel1.SuspendLayout();
+            this.splitContainer14.Panel2.SuspendLayout();
+            this.splitContainer14.SuspendLayout();
             this.tab_StatusScan.SuspendLayout();
             this.splitContainer6.Panel1.SuspendLayout();
             this.splitContainer6.Panel2.SuspendLayout();
@@ -268,8 +378,6 @@
             this.groupBox1.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.cnm_notifyIcon.SuspendLayout();
-            this.ctm_secvice.SuspendLayout();
-            this.ctm_startup.SuspendLayout();
             this.SuspendLayout();
             // 
             // cnm_HostParentView
@@ -353,18 +461,32 @@
             // 
             this.sts_Main.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.sts_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lbl_Display});
-            this.sts_Main.Location = new System.Drawing.Point(0, 544);
+            this.lbl_Display,
+            this.toolStripStatusLabel1,
+            this.CurrentIP_tSSL});
+            this.sts_Main.Location = new System.Drawing.Point(0, 552);
             this.sts_Main.Name = "sts_Main";
             this.sts_Main.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.sts_Main.Size = new System.Drawing.Size(911, 25);
+            this.sts_Main.Size = new System.Drawing.Size(1303, 26);
             this.sts_Main.TabIndex = 5;
             // 
             // lbl_Display
             // 
             this.lbl_Display.Name = "lbl_Display";
-            this.lbl_Display.Size = new System.Drawing.Size(49, 20);
+            this.lbl_Display.Size = new System.Drawing.Size(49, 21);
             this.lbl_Display.Text = "          ";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(129, 21);
+            this.toolStripStatusLabel1.Text = "当前操作的主机：";
+            // 
+            // CurrentIP_tSSL
+            // 
+            this.CurrentIP_tSSL.AutoSize = false;
+            this.CurrentIP_tSSL.Name = "CurrentIP_tSSL";
+            this.CurrentIP_tSSL.Size = new System.Drawing.Size(100, 21);
             // 
             // mnu_Main
             // 
@@ -377,7 +499,7 @@
             this.mnu_Main.Location = new System.Drawing.Point(0, 0);
             this.mnu_Main.Name = "mnu_Main";
             this.mnu_Main.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.mnu_Main.Size = new System.Drawing.Size(911, 28);
+            this.mnu_Main.Size = new System.Drawing.Size(1303, 28);
             this.mnu_Main.TabIndex = 7;
             this.mnu_Main.Text = "menuStrip1";
             // 
@@ -526,7 +648,7 @@
             this.内容CToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("内容CToolStripMenuItem.Image")));
             this.内容CToolStripMenuItem.Name = "内容CToolStripMenuItem";
             this.内容CToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.内容CToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.内容CToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.内容CToolStripMenuItem.Text = "内容(&C)";
             this.内容CToolStripMenuItem.Click += new System.EventHandler(this.内容CToolStripMenuItem_Click);
             // 
@@ -534,7 +656,7 @@
             // 
             this.关于AToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("关于AToolStripMenuItem.Image")));
             this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
             this.关于AToolStripMenuItem.Text = "关于(&A)";
             this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
             // 
@@ -558,7 +680,7 @@
             this.tsb_ExistApp});
             this.tls_Main.Location = new System.Drawing.Point(0, 28);
             this.tls_Main.Name = "tls_Main";
-            this.tls_Main.Size = new System.Drawing.Size(911, 27);
+            this.tls_Main.Size = new System.Drawing.Size(1303, 27);
             this.tls_Main.TabIndex = 8;
             this.tls_Main.Text = "toolStrip1";
             // 
@@ -698,8 +820,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabs);
-            this.splitContainer1.Size = new System.Drawing.Size(911, 489);
-            this.splitContainer1.SplitterDistance = 189;
+            this.splitContainer1.Size = new System.Drawing.Size(1303, 497);
+            this.splitContainer1.SplitterDistance = 270;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 9;
             // 
@@ -712,15 +834,16 @@
             this.trv_HostView.Location = new System.Drawing.Point(0, 0);
             this.trv_HostView.Margin = new System.Windows.Forms.Padding(4);
             this.trv_HostView.Name = "trv_HostView";
-            treeNode1.ContextMenuStrip = this.cnm_HostParentView;
-            treeNode1.Name = "nod_Root";
-            treeNode1.Text = "所有主机";
+            treeNode8.ContextMenuStrip = this.cnm_HostParentView;
+            treeNode8.Name = "nod_Root";
+            treeNode8.Text = "所有主机";
             this.trv_HostView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode8});
             this.trv_HostView.SelectedImageIndex = 0;
             this.trv_HostView.ShowLines = false;
-            this.trv_HostView.Size = new System.Drawing.Size(189, 489);
+            this.trv_HostView.Size = new System.Drawing.Size(270, 497);
             this.trv_HostView.TabIndex = 0;
+            this.trv_HostView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trv_HostView_AfterSelect);
             this.trv_HostView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trv_HostView_NodeMouseClick);
             this.trv_HostView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trv_HostView_NodeMouseDoubleClick);
             // 
@@ -750,7 +873,7 @@
             this.tabs.Margin = new System.Windows.Forms.Padding(4);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(717, 489);
+            this.tabs.Size = new System.Drawing.Size(1028, 497);
             this.tabs.TabIndex = 0;
             // 
             // tab_Speak
@@ -761,7 +884,7 @@
             this.tab_Speak.Margin = new System.Windows.Forms.Padding(4);
             this.tab_Speak.Name = "tab_Speak";
             this.tab_Speak.Padding = new System.Windows.Forms.Padding(4);
-            this.tab_Speak.Size = new System.Drawing.Size(709, 461);
+            this.tab_Speak.Size = new System.Drawing.Size(1020, 469);
             this.tab_Speak.TabIndex = 3;
             this.tab_Speak.Text = "对话";
             this.tab_Speak.UseVisualStyleBackColor = true;
@@ -774,7 +897,7 @@
             this.panel3.Location = new System.Drawing.Point(4, 4);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(701, 413);
+            this.panel3.Size = new System.Drawing.Size(1012, 421);
             this.panel3.TabIndex = 2;
             // 
             // panel11
@@ -784,7 +907,7 @@
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Margin = new System.Windows.Forms.Padding(4);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(701, 257);
+            this.panel11.Size = new System.Drawing.Size(1012, 265);
             this.panel11.TabIndex = 3;
             // 
             // rtb_Content
@@ -794,7 +917,7 @@
             this.rtb_Content.Margin = new System.Windows.Forms.Padding(4);
             this.rtb_Content.Name = "rtb_Content";
             this.rtb_Content.ReadOnly = true;
-            this.rtb_Content.Size = new System.Drawing.Size(701, 257);
+            this.rtb_Content.Size = new System.Drawing.Size(1012, 265);
             this.rtb_Content.TabIndex = 1;
             this.rtb_Content.Text = "";
             // 
@@ -802,10 +925,10 @@
             // 
             this.panel10.Controls.Add(this.rtb_Speak);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(0, 257);
+            this.panel10.Location = new System.Drawing.Point(0, 265);
             this.panel10.Margin = new System.Windows.Forms.Padding(4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(701, 156);
+            this.panel10.Size = new System.Drawing.Size(1012, 156);
             this.panel10.TabIndex = 2;
             // 
             // rtb_Speak
@@ -814,7 +937,7 @@
             this.rtb_Speak.Location = new System.Drawing.Point(0, 37);
             this.rtb_Speak.Margin = new System.Windows.Forms.Padding(4);
             this.rtb_Speak.Name = "rtb_Speak";
-            this.rtb_Speak.Size = new System.Drawing.Size(701, 119);
+            this.rtb_Speak.Size = new System.Drawing.Size(1012, 119);
             this.rtb_Speak.TabIndex = 0;
             this.rtb_Speak.Text = "";
             this.rtb_Speak.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtb_Speak_KeyDown);
@@ -823,17 +946,17 @@
             // 
             this.panel2.Controls.Add(this.btn_Send);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(4, 417);
+            this.panel2.Location = new System.Drawing.Point(4, 425);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(701, 40);
+            this.panel2.Size = new System.Drawing.Size(1012, 40);
             this.panel2.TabIndex = 1;
             // 
             // btn_Send
             // 
             this.btn_Send.Dock = System.Windows.Forms.DockStyle.Right;
             this.btn_Send.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btn_Send.Location = new System.Drawing.Point(601, 0);
+            this.btn_Send.Location = new System.Drawing.Point(912, 0);
             this.btn_Send.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Size = new System.Drawing.Size(100, 40);
@@ -849,7 +972,7 @@
             this.tab_Desktop.Margin = new System.Windows.Forms.Padding(4);
             this.tab_Desktop.Name = "tab_Desktop";
             this.tab_Desktop.Padding = new System.Windows.Forms.Padding(4);
-            this.tab_Desktop.Size = new System.Drawing.Size(709, 461);
+            this.tab_Desktop.Size = new System.Drawing.Size(1020, 470);
             this.tab_Desktop.TabIndex = 1;
             this.tab_Desktop.Text = "远程桌面";
             this.tab_Desktop.UseVisualStyleBackColor = true;
@@ -861,7 +984,7 @@
             this.pic_Screen.Location = new System.Drawing.Point(4, 4);
             this.pic_Screen.Margin = new System.Windows.Forms.Padding(4);
             this.pic_Screen.Name = "pic_Screen";
-            this.pic_Screen.Size = new System.Drawing.Size(701, 453);
+            this.pic_Screen.Size = new System.Drawing.Size(1012, 462);
             this.pic_Screen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pic_Screen.TabIndex = 0;
             this.pic_Screen.TabStop = false;
@@ -877,7 +1000,7 @@
             this.tab_FileView.Margin = new System.Windows.Forms.Padding(4);
             this.tab_FileView.Name = "tab_FileView";
             this.tab_FileView.Padding = new System.Windows.Forms.Padding(4);
-            this.tab_FileView.Size = new System.Drawing.Size(709, 461);
+            this.tab_FileView.Size = new System.Drawing.Size(1020, 470);
             this.tab_FileView.TabIndex = 2;
             this.tab_FileView.Text = "文件浏览";
             this.tab_FileView.UseVisualStyleBackColor = true;
@@ -899,8 +1022,8 @@
             // 
             this.spl_Explorer.Panel2.Controls.Add(this.pnl_bottom_myexplorer);
             this.spl_Explorer.Panel2.Controls.Add(this.pnl_top_myexplorer);
-            this.spl_Explorer.Size = new System.Drawing.Size(701, 453);
-            this.spl_Explorer.SplitterDistance = 259;
+            this.spl_Explorer.Size = new System.Drawing.Size(1012, 462);
+            this.spl_Explorer.SplitterDistance = 264;
             this.spl_Explorer.SplitterWidth = 5;
             this.spl_Explorer.TabIndex = 0;
             // 
@@ -911,7 +1034,7 @@
             this.pnl_bottom_hostexplorer.Location = new System.Drawing.Point(0, 34);
             this.pnl_bottom_hostexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_bottom_hostexplorer.Name = "pnl_bottom_hostexplorer";
-            this.pnl_bottom_hostexplorer.Size = new System.Drawing.Size(701, 225);
+            this.pnl_bottom_hostexplorer.Size = new System.Drawing.Size(1012, 230);
             this.pnl_bottom_hostexplorer.TabIndex = 5;
             // 
             // ltv_hostexplorer
@@ -923,7 +1046,7 @@
             this.ltv_hostexplorer.Location = new System.Drawing.Point(0, 0);
             this.ltv_hostexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.ltv_hostexplorer.Name = "ltv_hostexplorer";
-            this.ltv_hostexplorer.Size = new System.Drawing.Size(701, 225);
+            this.ltv_hostexplorer.Size = new System.Drawing.Size(1012, 230);
             this.ltv_hostexplorer.SmallImageList = this.iml_ExplorerImages;
             this.ltv_hostexplorer.TabIndex = 0;
             this.ltv_hostexplorer.UseCompatibleStateImageBehavior = false;
@@ -970,6 +1093,7 @@
             this.远程执行toolStripMenuItem1.Name = "远程执行toolStripMenuItem1";
             this.远程执行toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
             this.远程执行toolStripMenuItem1.Text = "远程执行";
+            this.远程执行toolStripMenuItem1.Click += new System.EventHandler(this.远程执行toolStripMenuItem1_Click);
             // 
             // iml_ExplorerImages
             // 
@@ -1062,7 +1186,7 @@
             this.pnl_top_hostexplorer.Location = new System.Drawing.Point(0, 0);
             this.pnl_top_hostexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_top_hostexplorer.Name = "pnl_top_hostexplorer";
-            this.pnl_top_hostexplorer.Size = new System.Drawing.Size(701, 34);
+            this.pnl_top_hostexplorer.Size = new System.Drawing.Size(1012, 34);
             this.pnl_top_hostexplorer.TabIndex = 4;
             // 
             // panel6
@@ -1072,7 +1196,7 @@
             this.panel6.Location = new System.Drawing.Point(89, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(4);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(491, 34);
+            this.panel6.Size = new System.Drawing.Size(802, 34);
             this.panel6.TabIndex = 6;
             // 
             // txt_hostexplorer
@@ -1081,7 +1205,7 @@
             this.txt_hostexplorer.Location = new System.Drawing.Point(0, 9);
             this.txt_hostexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.txt_hostexplorer.Name = "txt_hostexplorer";
-            this.txt_hostexplorer.Size = new System.Drawing.Size(491, 25);
+            this.txt_hostexplorer.Size = new System.Drawing.Size(802, 25);
             this.txt_hostexplorer.TabIndex = 1;
             this.txt_hostexplorer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_hostexplorer_KeyDown);
             // 
@@ -1109,7 +1233,7 @@
             // 
             this.panel4.Controls.Add(this.btn_hostexplorer);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(580, 0);
+            this.panel4.Location = new System.Drawing.Point(891, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(121, 34);
@@ -1133,7 +1257,7 @@
             this.pnl_bottom_myexplorer.Location = new System.Drawing.Point(0, 34);
             this.pnl_bottom_myexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_bottom_myexplorer.Name = "pnl_bottom_myexplorer";
-            this.pnl_bottom_myexplorer.Size = new System.Drawing.Size(701, 155);
+            this.pnl_bottom_myexplorer.Size = new System.Drawing.Size(1012, 159);
             this.pnl_bottom_myexplorer.TabIndex = 7;
             // 
             // ltv_myexplorer
@@ -1144,7 +1268,7 @@
             this.ltv_myexplorer.Location = new System.Drawing.Point(0, 0);
             this.ltv_myexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.ltv_myexplorer.Name = "ltv_myexplorer";
-            this.ltv_myexplorer.Size = new System.Drawing.Size(701, 155);
+            this.ltv_myexplorer.Size = new System.Drawing.Size(1012, 159);
             this.ltv_myexplorer.SmallImageList = this.iml_ExplorerImages;
             this.ltv_myexplorer.TabIndex = 0;
             this.ltv_myexplorer.UseCompatibleStateImageBehavior = false;
@@ -1194,7 +1318,7 @@
             this.pnl_top_myexplorer.Location = new System.Drawing.Point(0, 0);
             this.pnl_top_myexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.pnl_top_myexplorer.Name = "pnl_top_myexplorer";
-            this.pnl_top_myexplorer.Size = new System.Drawing.Size(701, 34);
+            this.pnl_top_myexplorer.Size = new System.Drawing.Size(1012, 34);
             this.pnl_top_myexplorer.TabIndex = 6;
             // 
             // panel7
@@ -1204,7 +1328,7 @@
             this.panel7.Location = new System.Drawing.Point(89, 0);
             this.panel7.Margin = new System.Windows.Forms.Padding(4);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(491, 34);
+            this.panel7.Size = new System.Drawing.Size(802, 34);
             this.panel7.TabIndex = 6;
             // 
             // txt_myexplorer
@@ -1213,7 +1337,7 @@
             this.txt_myexplorer.Location = new System.Drawing.Point(0, 9);
             this.txt_myexplorer.Margin = new System.Windows.Forms.Padding(4);
             this.txt_myexplorer.Name = "txt_myexplorer";
-            this.txt_myexplorer.Size = new System.Drawing.Size(491, 25);
+            this.txt_myexplorer.Size = new System.Drawing.Size(802, 25);
             this.txt_myexplorer.TabIndex = 1;
             this.txt_myexplorer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_myexplorer_KeyDown);
             // 
@@ -1241,7 +1365,7 @@
             // 
             this.panel9.Controls.Add(this.btn_myexplorer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel9.Location = new System.Drawing.Point(580, 0);
+            this.panel9.Location = new System.Drawing.Point(891, 0);
             this.panel9.Margin = new System.Windows.Forms.Padding(4);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(121, 34);
@@ -1265,7 +1389,7 @@
             this.tab_Log.Margin = new System.Windows.Forms.Padding(4);
             this.tab_Log.Name = "tab_Log";
             this.tab_Log.Padding = new System.Windows.Forms.Padding(4);
-            this.tab_Log.Size = new System.Drawing.Size(709, 461);
+            this.tab_Log.Size = new System.Drawing.Size(1020, 470);
             this.tab_Log.TabIndex = 4;
             this.tab_Log.Tag = "";
             this.tab_Log.Text = "日志";
@@ -1281,7 +1405,7 @@
             this.ltv_Log.Location = new System.Drawing.Point(4, 4);
             this.ltv_Log.Margin = new System.Windows.Forms.Padding(4);
             this.ltv_Log.Name = "ltv_Log";
-            this.ltv_Log.Size = new System.Drawing.Size(701, 453);
+            this.ltv_Log.Size = new System.Drawing.Size(1012, 462);
             this.ltv_Log.TabIndex = 1;
             this.ltv_Log.UseCompatibleStateImageBehavior = false;
             this.ltv_Log.View = System.Windows.Forms.View.Details;
@@ -1307,7 +1431,7 @@
             this.tab_Info.Location = new System.Drawing.Point(4, 24);
             this.tab_Info.Name = "tab_Info";
             this.tab_Info.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Info.Size = new System.Drawing.Size(709, 461);
+            this.tab_Info.Size = new System.Drawing.Size(1020, 470);
             this.tab_Info.TabIndex = 5;
             this.tab_Info.Text = "主机信息";
             this.tab_Info.UseVisualStyleBackColor = true;
@@ -1335,8 +1459,8 @@
             this.splitContainer5.Panel2.Controls.Add(this.WMISearchButton);
             this.splitContainer5.Panel2.Controls.Add(this.WMISearch_tB);
             this.splitContainer5.Panel2.Controls.Add(this.computerInfoGet_bt);
-            this.splitContainer5.Size = new System.Drawing.Size(703, 455);
-            this.splitContainer5.SplitterDistance = 352;
+            this.splitContainer5.Size = new System.Drawing.Size(1014, 464);
+            this.splitContainer5.SplitterDistance = 361;
             this.splitContainer5.TabIndex = 0;
             // 
             // computerInfo_rtb
@@ -1344,7 +1468,7 @@
             this.computerInfo_rtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.computerInfo_rtb.Location = new System.Drawing.Point(0, 0);
             this.computerInfo_rtb.Name = "computerInfo_rtb";
-            this.computerInfo_rtb.Size = new System.Drawing.Size(703, 352);
+            this.computerInfo_rtb.Size = new System.Drawing.Size(1014, 361);
             this.computerInfo_rtb.TabIndex = 0;
             this.computerInfo_rtb.Text = "";
             // 
@@ -1432,7 +1556,7 @@
             this.tab_Dos.Location = new System.Drawing.Point(4, 24);
             this.tab_Dos.Name = "tab_Dos";
             this.tab_Dos.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Dos.Size = new System.Drawing.Size(709, 461);
+            this.tab_Dos.Size = new System.Drawing.Size(1020, 470);
             this.tab_Dos.TabIndex = 6;
             this.tab_Dos.Text = "远程命令";
             this.tab_Dos.UseVisualStyleBackColor = true;
@@ -1452,8 +1576,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Size = new System.Drawing.Size(703, 455);
-            this.splitContainer2.SplitterDistance = 334;
+            this.splitContainer2.Size = new System.Drawing.Size(1014, 464);
+            this.splitContainer2.SplitterDistance = 343;
             this.splitContainer2.TabIndex = 5;
             // 
             // DosResult_rtb
@@ -1463,7 +1587,7 @@
             this.DosResult_rtb.ForeColor = System.Drawing.Color.White;
             this.DosResult_rtb.Location = new System.Drawing.Point(0, 0);
             this.DosResult_rtb.Name = "DosResult_rtb";
-            this.DosResult_rtb.Size = new System.Drawing.Size(703, 334);
+            this.DosResult_rtb.Size = new System.Drawing.Size(1014, 343);
             this.DosResult_rtb.TabIndex = 4;
             this.DosResult_rtb.Text = "";
             // 
@@ -1481,8 +1605,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.DosCommand_bn);
-            this.splitContainer4.Size = new System.Drawing.Size(703, 117);
-            this.splitContainer4.SplitterDistance = 613;
+            this.splitContainer4.Size = new System.Drawing.Size(1014, 117);
+            this.splitContainer4.SplitterDistance = 924;
             this.splitContainer4.TabIndex = 0;
             // 
             // DosCommand_tB
@@ -1492,7 +1616,7 @@
             this.DosCommand_tB.Multiline = true;
             this.DosCommand_tB.Name = "DosCommand_tB";
             this.DosCommand_tB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DosCommand_tB.Size = new System.Drawing.Size(613, 117);
+            this.DosCommand_tB.Size = new System.Drawing.Size(924, 117);
             this.DosCommand_tB.TabIndex = 2;
             // 
             // DosCommand_bn
@@ -1511,7 +1635,7 @@
             this.tab_Soft.Location = new System.Drawing.Point(4, 24);
             this.tab_Soft.Name = "tab_Soft";
             this.tab_Soft.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_Soft.Size = new System.Drawing.Size(709, 461);
+            this.tab_Soft.Size = new System.Drawing.Size(1020, 470);
             this.tab_Soft.TabIndex = 7;
             this.tab_Soft.Text = "推送脚本";
             this.tab_Soft.UseVisualStyleBackColor = true;
@@ -1519,20 +1643,516 @@
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer3.Location = new System.Drawing.Point(3, 3);
             this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.splitContainer3.Size = new System.Drawing.Size(703, 455);
-            this.splitContainer3.SplitterDistance = 411;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.splitContainer8);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.tabControl2);
+            this.splitContainer3.Size = new System.Drawing.Size(1014, 464);
+            this.splitContainer3.SplitterDistance = 378;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // splitContainer8
+            // 
+            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer8.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Name = "splitContainer8";
+            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer8.Panel1
+            // 
+            this.splitContainer8.Panel1.Controls.Add(this.Script_rtb);
+            // 
+            // splitContainer8.Panel2
+            // 
+            this.splitContainer8.Panel2.Controls.Add(this.Script_IsWaiting_cB);
+            this.splitContainer8.Panel2.Controls.Add(this.label6);
+            this.splitContainer8.Panel2.Controls.Add(this.Script_paramerer_tB);
+            this.splitContainer8.Panel2.Controls.Add(this.ScriptFileOpenButton);
+            this.splitContainer8.Panel2.Controls.Add(this.ScriptSendButton);
+            this.splitContainer8.Panel2.Controls.Add(this.Script_filepath_tB);
+            this.splitContainer8.Size = new System.Drawing.Size(378, 464);
+            this.splitContainer8.SplitterDistance = 400;
+            this.splitContainer8.TabIndex = 0;
+            // 
+            // Script_rtb
+            // 
+            this.Script_rtb.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Script_rtb.Location = new System.Drawing.Point(0, 0);
+            this.Script_rtb.Name = "Script_rtb";
+            this.Script_rtb.Size = new System.Drawing.Size(378, 400);
+            this.Script_rtb.TabIndex = 0;
+            this.Script_rtb.Text = "";
+            // 
+            // Script_IsWaiting_cB
+            // 
+            this.Script_IsWaiting_cB.AutoSize = true;
+            this.Script_IsWaiting_cB.Checked = true;
+            this.Script_IsWaiting_cB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Script_IsWaiting_cB.Location = new System.Drawing.Point(175, 37);
+            this.Script_IsWaiting_cB.Name = "Script_IsWaiting_cB";
+            this.Script_IsWaiting_cB.Size = new System.Drawing.Size(119, 19);
+            this.Script_IsWaiting_cB.TabIndex = 5;
+            this.Script_IsWaiting_cB.Text = "等待执行结束";
+            this.Script_IsWaiting_cB.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 38);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 15);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "参数";
+            // 
+            // Script_paramerer_tB
+            // 
+            this.Script_paramerer_tB.Location = new System.Drawing.Point(46, 32);
+            this.Script_paramerer_tB.Name = "Script_paramerer_tB";
+            this.Script_paramerer_tB.Size = new System.Drawing.Size(112, 25);
+            this.Script_paramerer_tB.TabIndex = 3;
+            // 
+            // ScriptFileOpenButton
+            // 
+            this.ScriptFileOpenButton.Location = new System.Drawing.Point(339, 6);
+            this.ScriptFileOpenButton.Name = "ScriptFileOpenButton";
+            this.ScriptFileOpenButton.Size = new System.Drawing.Size(33, 23);
+            this.ScriptFileOpenButton.TabIndex = 2;
+            this.ScriptFileOpenButton.Text = "...";
+            this.ScriptFileOpenButton.UseVisualStyleBackColor = true;
+            this.ScriptFileOpenButton.Click += new System.EventHandler(this.ScriptFileOpenButton_Click);
+            // 
+            // ScriptSendButton
+            // 
+            this.ScriptSendButton.Location = new System.Drawing.Point(300, 34);
+            this.ScriptSendButton.Name = "ScriptSendButton";
+            this.ScriptSendButton.Size = new System.Drawing.Size(75, 23);
+            this.ScriptSendButton.TabIndex = 1;
+            this.ScriptSendButton.Text = "推送执行";
+            this.ScriptSendButton.UseVisualStyleBackColor = true;
+            this.ScriptSendButton.Click += new System.EventHandler(this.ScriptSendButton_Click);
+            // 
+            // Script_filepath_tB
+            // 
+            this.Script_filepath_tB.Location = new System.Drawing.Point(3, 4);
+            this.Script_filepath_tB.Name = "Script_filepath_tB";
+            this.Script_filepath_tB.Size = new System.Drawing.Size(330, 25);
+            this.Script_filepath_tB.TabIndex = 0;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.Script_bat);
+            this.tabControl2.Controls.Add(this.Script_rar);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(632, 464);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // Script_bat
+            // 
+            this.Script_bat.Controls.Add(this.splitContainer9);
+            this.Script_bat.Location = new System.Drawing.Point(4, 25);
+            this.Script_bat.Name = "Script_bat";
+            this.Script_bat.Padding = new System.Windows.Forms.Padding(3);
+            this.Script_bat.Size = new System.Drawing.Size(624, 435);
+            this.Script_bat.TabIndex = 0;
+            this.Script_bat.Text = "BAT脚本";
+            this.Script_bat.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer9
+            // 
+            this.splitContainer9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer9.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer9.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer9.Name = "splitContainer9";
+            this.splitContainer9.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer9.Panel1
+            // 
+            this.splitContainer9.Panel1.Controls.Add(this.ScriptBatEdit_rtb);
+            // 
+            // splitContainer9.Panel2
+            // 
+            this.splitContainer9.Panel2.Controls.Add(this.Script_bat_IsWaiting_cB);
+            this.splitContainer9.Panel2.Controls.Add(this.ScriptBatClearButton);
+            this.splitContainer9.Panel2.Controls.Add(this.ScriptBatCheckButton);
+            this.splitContainer9.Panel2.Controls.Add(this.label7);
+            this.splitContainer9.Panel2.Controls.Add(this.Script_bat_paramerer_tB);
+            this.splitContainer9.Panel2.Controls.Add(this.ScriptBatSendButton);
+            this.splitContainer9.Panel2.Controls.Add(this.ScriptBatLocalTestButton);
+            this.splitContainer9.Panel2.Controls.Add(this.ScriptBatClipboardButton);
+            this.splitContainer9.Size = new System.Drawing.Size(618, 429);
+            this.splitContainer9.SplitterDistance = 385;
+            this.splitContainer9.TabIndex = 0;
+            // 
+            // ScriptBatEdit_rtb
+            // 
+            this.ScriptBatEdit_rtb.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScriptBatEdit_rtb.Location = new System.Drawing.Point(0, 0);
+            this.ScriptBatEdit_rtb.Name = "ScriptBatEdit_rtb";
+            this.ScriptBatEdit_rtb.Size = new System.Drawing.Size(618, 385);
+            this.ScriptBatEdit_rtb.TabIndex = 0;
+            this.ScriptBatEdit_rtb.Text = "";
+            // 
+            // Script_bat_IsWaiting_cB
+            // 
+            this.Script_bat_IsWaiting_cB.AutoSize = true;
+            this.Script_bat_IsWaiting_cB.Checked = true;
+            this.Script_bat_IsWaiting_cB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Script_bat_IsWaiting_cB.Location = new System.Drawing.Point(360, 11);
+            this.Script_bat_IsWaiting_cB.Name = "Script_bat_IsWaiting_cB";
+            this.Script_bat_IsWaiting_cB.Size = new System.Drawing.Size(89, 19);
+            this.Script_bat_IsWaiting_cB.TabIndex = 6;
+            this.Script_bat_IsWaiting_cB.Text = "等待结束";
+            this.Script_bat_IsWaiting_cB.UseVisualStyleBackColor = true;
+            // 
+            // ScriptBatClearButton
+            // 
+            this.ScriptBatClearButton.Location = new System.Drawing.Point(65, 8);
+            this.ScriptBatClearButton.Name = "ScriptBatClearButton";
+            this.ScriptBatClearButton.Size = new System.Drawing.Size(59, 23);
+            this.ScriptBatClearButton.TabIndex = 8;
+            this.ScriptBatClearButton.Text = "清空";
+            this.ScriptBatClearButton.UseVisualStyleBackColor = true;
+            this.ScriptBatClearButton.Click += new System.EventHandler(this.ScriptBatClearButton_Click);
+            // 
+            // ScriptBatCheckButton
+            // 
+            this.ScriptBatCheckButton.Location = new System.Drawing.Point(130, 8);
+            this.ScriptBatCheckButton.Name = "ScriptBatCheckButton";
+            this.ScriptBatCheckButton.Size = new System.Drawing.Size(75, 23);
+            this.ScriptBatCheckButton.TabIndex = 7;
+            this.ScriptBatCheckButton.Text = "语法检查";
+            this.ScriptBatCheckButton.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(211, 12);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(37, 15);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "参数";
+            // 
+            // Script_bat_paramerer_tB
+            // 
+            this.Script_bat_paramerer_tB.Location = new System.Drawing.Point(242, 6);
+            this.Script_bat_paramerer_tB.Name = "Script_bat_paramerer_tB";
+            this.Script_bat_paramerer_tB.Size = new System.Drawing.Size(112, 25);
+            this.Script_bat_paramerer_tB.TabIndex = 5;
+            // 
+            // ScriptBatSendButton
+            // 
+            this.ScriptBatSendButton.Location = new System.Drawing.Point(531, 8);
+            this.ScriptBatSendButton.Name = "ScriptBatSendButton";
+            this.ScriptBatSendButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ScriptBatSendButton.Size = new System.Drawing.Size(75, 23);
+            this.ScriptBatSendButton.TabIndex = 2;
+            this.ScriptBatSendButton.Text = "推送执行";
+            this.ScriptBatSendButton.UseVisualStyleBackColor = true;
+            this.ScriptBatSendButton.Click += new System.EventHandler(this.ScriptBatSendButton_Click);
+            // 
+            // ScriptBatLocalTestButton
+            // 
+            this.ScriptBatLocalTestButton.Location = new System.Drawing.Point(450, 8);
+            this.ScriptBatLocalTestButton.Name = "ScriptBatLocalTestButton";
+            this.ScriptBatLocalTestButton.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.ScriptBatLocalTestButton.Size = new System.Drawing.Size(75, 23);
+            this.ScriptBatLocalTestButton.TabIndex = 1;
+            this.ScriptBatLocalTestButton.Text = "本地测试";
+            this.ScriptBatLocalTestButton.UseVisualStyleBackColor = true;
+            this.ScriptBatLocalTestButton.Click += new System.EventHandler(this.ScriptBatLocalTestButton_Click);
+            // 
+            // ScriptBatClipboardButton
+            // 
+            this.ScriptBatClipboardButton.Location = new System.Drawing.Point(3, 8);
+            this.ScriptBatClipboardButton.Name = "ScriptBatClipboardButton";
+            this.ScriptBatClipboardButton.Size = new System.Drawing.Size(56, 23);
+            this.ScriptBatClipboardButton.TabIndex = 0;
+            this.ScriptBatClipboardButton.Text = "粘贴";
+            this.ScriptBatClipboardButton.UseVisualStyleBackColor = true;
+            this.ScriptBatClipboardButton.Click += new System.EventHandler(this.ScriptBatClipboardButton_Click);
+            // 
+            // Script_rar
+            // 
+            this.Script_rar.Controls.Add(this.splitContainer10);
+            this.Script_rar.Location = new System.Drawing.Point(4, 25);
+            this.Script_rar.Name = "Script_rar";
+            this.Script_rar.Padding = new System.Windows.Forms.Padding(3);
+            this.Script_rar.Size = new System.Drawing.Size(624, 435);
+            this.Script_rar.TabIndex = 1;
+            this.Script_rar.Text = "打包脚本";
+            this.Script_rar.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer10
+            // 
+            this.splitContainer10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer10.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer10.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer10.Name = "splitContainer10";
+            this.splitContainer10.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer10.Panel1
+            // 
+            this.splitContainer10.Panel1.Controls.Add(this.ScriptRARLocalTestButton);
+            this.splitContainer10.Panel1.Controls.Add(this.ScriptRarSend);
+            this.splitContainer10.Panel1.Controls.Add(this.groupBox2);
+            // 
+            // splitContainer10.Panel2
+            // 
+            this.splitContainer10.Panel2.Controls.Add(this.splitContainer11);
+            this.splitContainer10.Size = new System.Drawing.Size(618, 429);
+            this.splitContainer10.SplitterDistance = 120;
+            this.splitContainer10.TabIndex = 0;
+            // 
+            // ScriptRARLocalTestButton
+            // 
+            this.ScriptRARLocalTestButton.Location = new System.Drawing.Point(486, 74);
+            this.ScriptRARLocalTestButton.Name = "ScriptRARLocalTestButton";
+            this.ScriptRARLocalTestButton.Size = new System.Drawing.Size(112, 23);
+            this.ScriptRARLocalTestButton.TabIndex = 2;
+            this.ScriptRARLocalTestButton.Text = "打包本地测试";
+            this.ScriptRARLocalTestButton.UseVisualStyleBackColor = true;
+            this.ScriptRARLocalTestButton.Click += new System.EventHandler(this.ScriptRARLocalTestButton_Click);
+            // 
+            // ScriptRarSend
+            // 
+            this.ScriptRarSend.Location = new System.Drawing.Point(486, 45);
+            this.ScriptRarSend.Name = "ScriptRarSend";
+            this.ScriptRarSend.Size = new System.Drawing.Size(112, 23);
+            this.ScriptRarSend.TabIndex = 1;
+            this.ScriptRarSend.Text = "打包推送执行";
+            this.ScriptRarSend.UseVisualStyleBackColor = true;
+            this.ScriptRarSend.Click += new System.EventHandler(this.ScriptRarSend_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ScriptRAR_pamarerer_tB);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.ScriptRAR3_cB);
+            this.groupBox2.Controls.Add(this.ScriptRAR2_cB);
+            this.groupBox2.Controls.Add(this.ScriptRAR1_cB);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(459, 120);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "参数设置";
+            // 
+            // ScriptRAR_pamarerer_tB
+            // 
+            this.ScriptRAR_pamarerer_tB.Location = new System.Drawing.Point(56, 95);
+            this.ScriptRAR_pamarerer_tB.Name = "ScriptRAR_pamarerer_tB";
+            this.ScriptRAR_pamarerer_tB.Size = new System.Drawing.Size(100, 25);
+            this.ScriptRAR_pamarerer_tB.TabIndex = 4;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 102);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 15);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "参数";
+            // 
+            // ScriptRAR3_cB
+            // 
+            this.ScriptRAR3_cB.AutoSize = true;
+            this.ScriptRAR3_cB.Location = new System.Drawing.Point(16, 74);
+            this.ScriptRAR3_cB.Name = "ScriptRAR3_cB";
+            this.ScriptRAR3_cB.Size = new System.Drawing.Size(104, 19);
+            this.ScriptRAR3_cB.TabIndex = 2;
+            this.ScriptRAR3_cB.Text = "执行后清除";
+            this.ScriptRAR3_cB.UseVisualStyleBackColor = true;
+            // 
+            // ScriptRAR2_cB
+            // 
+            this.ScriptRAR2_cB.AutoSize = true;
+            this.ScriptRAR2_cB.Location = new System.Drawing.Point(16, 49);
+            this.ScriptRAR2_cB.Name = "ScriptRAR2_cB";
+            this.ScriptRAR2_cB.Size = new System.Drawing.Size(149, 19);
+            this.ScriptRAR2_cB.TabIndex = 1;
+            this.ScriptRAR2_cB.Text = "直接覆盖已有文件";
+            this.ScriptRAR2_cB.UseVisualStyleBackColor = true;
+            // 
+            // ScriptRAR1_cB
+            // 
+            this.ScriptRAR1_cB.AutoSize = true;
+            this.ScriptRAR1_cB.Location = new System.Drawing.Point(16, 24);
+            this.ScriptRAR1_cB.Name = "ScriptRAR1_cB";
+            this.ScriptRAR1_cB.Size = new System.Drawing.Size(149, 19);
+            this.ScriptRAR1_cB.TabIndex = 0;
+            this.ScriptRAR1_cB.Text = "等待所有执行结束";
+            this.ScriptRAR1_cB.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer11
+            // 
+            this.splitContainer11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer11.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer11.Name = "splitContainer11";
+            this.splitContainer11.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer11.Panel1
+            // 
+            this.splitContainer11.Panel1.Controls.Add(this.groupBox4);
+            // 
+            // splitContainer11.Panel2
+            // 
+            this.splitContainer11.Panel2.Controls.Add(this.groupBox3);
+            this.splitContainer11.Size = new System.Drawing.Size(618, 305);
+            this.splitContainer11.SplitterDistance = 151;
+            this.splitContainer11.TabIndex = 1;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.ScriptRARFile1_dGV);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(618, 151);
+            this.groupBox4.TabIndex = 1;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "脚本文件---会被顺序执行";
+            // 
+            // ScriptRARFile1_dGV
+            // 
+            this.ScriptRARFile1_dGV.AllowUserToDeleteRows = false;
+            this.ScriptRARFile1_dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ScriptRARFile1_dGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.Column5,
+            this.dataGridViewButtonColumn1});
+            this.ScriptRARFile1_dGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScriptRARFile1_dGV.Location = new System.Drawing.Point(3, 21);
+            this.ScriptRARFile1_dGV.Name = "ScriptRARFile1_dGV";
+            this.ScriptRARFile1_dGV.ReadOnly = true;
+            this.ScriptRARFile1_dGV.RowHeadersVisible = false;
+            this.ScriptRARFile1_dGV.RowTemplate.Height = 27;
+            this.ScriptRARFile1_dGV.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.ScriptRARFile1_dGV.Size = new System.Drawing.Size(612, 127);
+            this.ScriptRARFile1_dGV.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "文件名";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "路径";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 300;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "大小";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 80;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "...";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 30;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "操作";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.ReadOnly = true;
+            this.dataGridViewButtonColumn1.Text = "删除";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.ScriptRARFile2_dGV);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(618, 150);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "资源文件---不会执行";
+            // 
+            // ScriptRARFile2_dGV
+            // 
+            this.ScriptRARFile2_dGV.AllowUserToDeleteRows = false;
+            this.ScriptRARFile2_dGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ScriptRARFile2_dGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column6,
+            this.Column4});
+            this.ScriptRARFile2_dGV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScriptRARFile2_dGV.Location = new System.Drawing.Point(3, 21);
+            this.ScriptRARFile2_dGV.Name = "ScriptRARFile2_dGV";
+            this.ScriptRARFile2_dGV.ReadOnly = true;
+            this.ScriptRARFile2_dGV.RowHeadersVisible = false;
+            this.ScriptRARFile2_dGV.RowTemplate.Height = 27;
+            this.ScriptRARFile2_dGV.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.ScriptRARFile2_dGV.Size = new System.Drawing.Size(612, 126);
+            this.ScriptRARFile2_dGV.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "文件名";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "路径";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 300;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "大小";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 80;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "...";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Column6.Width = 30;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "操作";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Text = "删除";
             // 
             // tab_process
             // 
             this.tab_process.Controls.Add(this.splitContainer7);
             this.tab_process.Location = new System.Drawing.Point(4, 24);
             this.tab_process.Name = "tab_process";
-            this.tab_process.Size = new System.Drawing.Size(709, 461);
+            this.tab_process.Size = new System.Drawing.Size(1020, 470);
             this.tab_process.TabIndex = 8;
             this.tab_process.Text = "进程管理";
             this.tab_process.UseVisualStyleBackColor = true;
@@ -1550,8 +2170,8 @@
             // splitContainer7.Panel2
             // 
             this.splitContainer7.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer7.Size = new System.Drawing.Size(709, 461);
-            this.splitContainer7.SplitterDistance = 235;
+            this.splitContainer7.Size = new System.Drawing.Size(1020, 470);
+            this.splitContainer7.SplitterDistance = 338;
             this.splitContainer7.TabIndex = 0;
             // 
             // PSS_rtb
@@ -1559,7 +2179,7 @@
             this.PSS_rtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PSS_rtb.Location = new System.Drawing.Point(0, 0);
             this.PSS_rtb.Name = "PSS_rtb";
-            this.PSS_rtb.Size = new System.Drawing.Size(235, 461);
+            this.PSS_rtb.Size = new System.Drawing.Size(338, 470);
             this.PSS_rtb.TabIndex = 0;
             this.PSS_rtb.Text = "";
             // 
@@ -1574,7 +2194,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(470, 461);
+            this.tabControl1.Size = new System.Drawing.Size(678, 470);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -1583,7 +2203,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(462, 432);
+            this.tabPage1.Size = new System.Drawing.Size(670, 441);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "进程管理";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1601,10 +2221,10 @@
             this.process_lv.FullRowSelect = true;
             this.process_lv.HideSelection = false;
             this.process_lv.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem4});
             this.process_lv.Location = new System.Drawing.Point(3, 3);
             this.process_lv.Name = "process_lv";
-            this.process_lv.Size = new System.Drawing.Size(456, 426);
+            this.process_lv.Size = new System.Drawing.Size(664, 435);
             this.process_lv.TabIndex = 0;
             this.process_lv.UseCompatibleStateImageBehavior = false;
             this.process_lv.View = System.Windows.Forms.View.Details;
@@ -1662,7 +2282,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(462, 432);
+            this.tabPage2.Size = new System.Drawing.Size(670, 441);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "服务管理";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1682,10 +2302,10 @@
             this.Service_lv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Service_lv.FullRowSelect = true;
             this.Service_lv.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.Service_lv.Location = new System.Drawing.Point(3, 3);
             this.Service_lv.Name = "Service_lv";
-            this.Service_lv.Size = new System.Drawing.Size(456, 426);
+            this.Service_lv.Size = new System.Drawing.Size(664, 435);
             this.Service_lv.TabIndex = 0;
             this.Service_lv.UseCompatibleStateImageBehavior = false;
             this.Service_lv.View = System.Windows.Forms.View.Details;
@@ -1693,6 +2313,10 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "名称";
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "全称";
             // 
             // columnHeader5
             // 
@@ -1712,12 +2336,83 @@
             // 
             this.columnHeader8.Text = "登录为";
             // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "执行路径";
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "进程Id";
+            // 
+            // ctm_secvice
+            // 
+            this.ctm_secvice.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ctm_secvice.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.刷新toolStripMenuItem1,
+            this.启动toolStripMenuItem1,
+            this.停止toolStripMenuItem1,
+            this.启动类型toolStripMenuItem1});
+            this.ctm_secvice.Name = "ctm_secvice";
+            this.ctm_secvice.Size = new System.Drawing.Size(145, 108);
+            // 
+            // 刷新toolStripMenuItem1
+            // 
+            this.刷新toolStripMenuItem1.Name = "刷新toolStripMenuItem1";
+            this.刷新toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.刷新toolStripMenuItem1.Text = "刷新";
+            this.刷新toolStripMenuItem1.Click += new System.EventHandler(this.刷新toolStripMenuItem1_Click);
+            // 
+            // 启动toolStripMenuItem1
+            // 
+            this.启动toolStripMenuItem1.Name = "启动toolStripMenuItem1";
+            this.启动toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.启动toolStripMenuItem1.Text = "启动";
+            this.启动toolStripMenuItem1.Click += new System.EventHandler(this.启动toolStripMenuItem1_Click);
+            // 
+            // 停止toolStripMenuItem1
+            // 
+            this.停止toolStripMenuItem1.Name = "停止toolStripMenuItem1";
+            this.停止toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.停止toolStripMenuItem1.Text = "停止";
+            this.停止toolStripMenuItem1.Click += new System.EventHandler(this.停止toolStripMenuItem1_Click);
+            // 
+            // 启动类型toolStripMenuItem1
+            // 
+            this.启动类型toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.自动toolStripMenuItem1,
+            this.手动toolStripMenuItem1,
+            this.禁止toolStripMenuItem1});
+            this.启动类型toolStripMenuItem1.Name = "启动类型toolStripMenuItem1";
+            this.启动类型toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
+            this.启动类型toolStripMenuItem1.Text = "启动类型";
+            // 
+            // 自动toolStripMenuItem1
+            // 
+            this.自动toolStripMenuItem1.Name = "自动toolStripMenuItem1";
+            this.自动toolStripMenuItem1.Size = new System.Drawing.Size(114, 26);
+            this.自动toolStripMenuItem1.Text = "自动";
+            this.自动toolStripMenuItem1.Click += new System.EventHandler(this.自动toolStripMenuItem1_Click);
+            // 
+            // 手动toolStripMenuItem1
+            // 
+            this.手动toolStripMenuItem1.Name = "手动toolStripMenuItem1";
+            this.手动toolStripMenuItem1.Size = new System.Drawing.Size(114, 26);
+            this.手动toolStripMenuItem1.Text = "手动";
+            this.手动toolStripMenuItem1.Click += new System.EventHandler(this.手动toolStripMenuItem1_Click);
+            // 
+            // 禁止toolStripMenuItem1
+            // 
+            this.禁止toolStripMenuItem1.Name = "禁止toolStripMenuItem1";
+            this.禁止toolStripMenuItem1.Size = new System.Drawing.Size(114, 26);
+            this.禁止toolStripMenuItem1.Text = "禁止";
+            this.禁止toolStripMenuItem1.Click += new System.EventHandler(this.禁止toolStripMenuItem1_Click);
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.Startup_lv);
             this.tabPage3.Location = new System.Drawing.Point(4, 4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(462, 432);
+            this.tabPage3.Size = new System.Drawing.Size(670, 441);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "启动项管理";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1731,10 +2426,10 @@
             this.Startup_lv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Startup_lv.FullRowSelect = true;
             this.Startup_lv.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem2});
             this.Startup_lv.Location = new System.Drawing.Point(0, 0);
             this.Startup_lv.Name = "Startup_lv";
-            this.Startup_lv.Size = new System.Drawing.Size(462, 432);
+            this.Startup_lv.Size = new System.Drawing.Size(670, 441);
             this.Startup_lv.TabIndex = 0;
             this.Startup_lv.UseCompatibleStateImageBehavior = false;
             this.Startup_lv.View = System.Windows.Forms.View.Details;
@@ -1748,21 +2443,246 @@
             // 
             this.columnHeader13.Text = "命令行";
             // 
+            // ctm_startup
+            // 
+            this.ctm_startup.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.ctm_startup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.刷新toolStripMenuItem2,
+            this.禁用toolStripMenuItem2});
+            this.ctm_startup.Name = "ctm_startup";
+            this.ctm_startup.Size = new System.Drawing.Size(115, 56);
+            // 
+            // 刷新toolStripMenuItem2
+            // 
+            this.刷新toolStripMenuItem2.Name = "刷新toolStripMenuItem2";
+            this.刷新toolStripMenuItem2.Size = new System.Drawing.Size(114, 26);
+            this.刷新toolStripMenuItem2.Text = "刷新";
+            this.刷新toolStripMenuItem2.Click += new System.EventHandler(this.刷新toolStripMenuItem2_Click);
+            // 
+            // 禁用toolStripMenuItem2
+            // 
+            this.禁用toolStripMenuItem2.Name = "禁用toolStripMenuItem2";
+            this.禁用toolStripMenuItem2.Size = new System.Drawing.Size(114, 26);
+            this.禁用toolStripMenuItem2.Text = "禁用";
+            this.禁用toolStripMenuItem2.Click += new System.EventHandler(this.禁用toolStripMenuItem2_Click);
+            // 
             // tab_Regedit
             // 
+            this.tab_Regedit.Controls.Add(this.splitContainer12);
             this.tab_Regedit.Location = new System.Drawing.Point(4, 24);
             this.tab_Regedit.Name = "tab_Regedit";
-            this.tab_Regedit.Size = new System.Drawing.Size(709, 461);
+            this.tab_Regedit.Size = new System.Drawing.Size(1020, 469);
             this.tab_Regedit.TabIndex = 9;
             this.tab_Regedit.Text = "注册表管理";
             this.tab_Regedit.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer12
+            // 
+            this.splitContainer12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer12.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer12.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer12.Name = "splitContainer12";
+            // 
+            // splitContainer12.Panel1
+            // 
+            this.splitContainer12.Panel1.Controls.Add(this.Reg_tV);
+            // 
+            // splitContainer12.Panel2
+            // 
+            this.splitContainer12.Panel2.Controls.Add(this.splitContainer13);
+            this.splitContainer12.Size = new System.Drawing.Size(1020, 469);
+            this.splitContainer12.SplitterDistance = 340;
+            this.splitContainer12.TabIndex = 0;
+            // 
+            // Reg_tV
+            // 
+            this.Reg_tV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Reg_tV.Location = new System.Drawing.Point(0, 0);
+            this.Reg_tV.Name = "Reg_tV";
+            treeNode1.Name = "HKEY_CLASSES_ROOT";
+            treeNode1.Text = "HKEY_CLASSES_ROOT";
+            treeNode1.ToolTipText = "HKEY_CLASSES_ROOT";
+            treeNode9.Name = "HKEY_CURRENT_USER";
+            treeNode9.Text = "HKEY_CURRENT_USER";
+            treeNode9.ToolTipText = "HKEY_CURRENT_USER";
+            treeNode10.Name = "HKEY_LOCAL_MACHINE";
+            treeNode10.Text = "HKEY_LOCAL_MACHINE";
+            treeNode10.ToolTipText = "HKEY_LOCAL_MACHINE";
+            treeNode11.Name = "HKEY_USERS";
+            treeNode11.Text = "HKEY_USERS";
+            treeNode11.ToolTipText = "HKEY_USERS";
+            treeNode12.Name = "HKEY_CURRENT_CONFIG";
+            treeNode12.Text = "HKEY_CURRENT_CONFIG";
+            treeNode12.ToolTipText = "HKEY_CURRENT_CONFIG";
+            treeNode13.Name = "节点0";
+            treeNode13.Text = "远程注册表根目录";
+            this.Reg_tV.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode13});
+            this.Reg_tV.Size = new System.Drawing.Size(340, 469);
+            this.Reg_tV.TabIndex = 0;
+            this.Reg_tV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Reg_tV_AfterSelect);
+            // 
+            // splitContainer13
+            // 
+            this.splitContainer13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer13.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer13.Name = "splitContainer13";
+            this.splitContainer13.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer13.Panel1
+            // 
+            this.splitContainer13.Panel1.Controls.Add(this.Reg_lV);
+            // 
+            // splitContainer13.Panel2
+            // 
+            this.splitContainer13.Panel2.Controls.Add(this.splitContainer14);
+            this.splitContainer13.Size = new System.Drawing.Size(676, 469);
+            this.splitContainer13.SplitterDistance = 224;
+            this.splitContainer13.TabIndex = 0;
+            // 
+            // Reg_lV
+            // 
+            this.Reg_lV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader10,
+            this.columnHeader11,
+            this.columnHeader12});
+            this.Reg_lV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Reg_lV.Location = new System.Drawing.Point(0, 0);
+            this.Reg_lV.Name = "Reg_lV";
+            this.Reg_lV.Size = new System.Drawing.Size(676, 224);
+            this.Reg_lV.TabIndex = 0;
+            this.Reg_lV.UseCompatibleStateImageBehavior = false;
+            this.Reg_lV.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "名称";
+            this.columnHeader10.Width = 100;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "类型";
+            this.columnHeader11.Width = 100;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "数据";
+            this.columnHeader12.Width = 400;
+            // 
+            // splitContainer14
+            // 
+            this.splitContainer14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer14.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer14.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer14.Name = "splitContainer14";
+            // 
+            // splitContainer14.Panel1
+            // 
+            this.splitContainer14.Panel1.Controls.Add(this.Reg_rTB);
+            // 
+            // splitContainer14.Panel2
+            // 
+            this.splitContainer14.Panel2.Controls.Add(this.RegImportButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegDirDelButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegDirModiButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegDirAddButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegKeyDelButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegKeyAddButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegKeyModiButton);
+            this.splitContainer14.Panel2.Controls.Add(this.RegKeyOutportButton);
+            this.splitContainer14.Size = new System.Drawing.Size(676, 241);
+            this.splitContainer14.SplitterDistance = 560;
+            this.splitContainer14.TabIndex = 0;
+            // 
+            // Reg_rTB
+            // 
+            this.Reg_rTB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Reg_rTB.HiglightColor = CCWin.SkinControl.RtfRichTextBox.RtfColor.White;
+            this.Reg_rTB.Location = new System.Drawing.Point(0, 0);
+            this.Reg_rTB.Name = "Reg_rTB";
+            this.Reg_rTB.Size = new System.Drawing.Size(560, 241);
+            this.Reg_rTB.TabIndex = 0;
+            this.Reg_rTB.Text = "";
+            this.Reg_rTB.TextColor = CCWin.SkinControl.RtfRichTextBox.RtfColor.Black;
+            // 
+            // RegImportButton
+            // 
+            this.RegImportButton.Location = new System.Drawing.Point(18, 179);
+            this.RegImportButton.Name = "RegImportButton";
+            this.RegImportButton.Size = new System.Drawing.Size(75, 23);
+            this.RegImportButton.TabIndex = 7;
+            this.RegImportButton.Text = "导入...";
+            this.RegImportButton.UseVisualStyleBackColor = true;
+            // 
+            // RegDirDelButton
+            // 
+            this.RegDirDelButton.Location = new System.Drawing.Point(18, 149);
+            this.RegDirDelButton.Name = "RegDirDelButton";
+            this.RegDirDelButton.Size = new System.Drawing.Size(75, 23);
+            this.RegDirDelButton.TabIndex = 6;
+            this.RegDirDelButton.Text = "删除子项";
+            this.RegDirDelButton.UseVisualStyleBackColor = true;
+            // 
+            // RegDirModiButton
+            // 
+            this.RegDirModiButton.Location = new System.Drawing.Point(18, 120);
+            this.RegDirModiButton.Name = "RegDirModiButton";
+            this.RegDirModiButton.Size = new System.Drawing.Size(75, 23);
+            this.RegDirModiButton.TabIndex = 5;
+            this.RegDirModiButton.Text = "修改子项";
+            this.RegDirModiButton.UseVisualStyleBackColor = true;
+            // 
+            // RegDirAddButton
+            // 
+            this.RegDirAddButton.Location = new System.Drawing.Point(18, 91);
+            this.RegDirAddButton.Name = "RegDirAddButton";
+            this.RegDirAddButton.Size = new System.Drawing.Size(75, 23);
+            this.RegDirAddButton.TabIndex = 4;
+            this.RegDirAddButton.Text = "新增子项";
+            this.RegDirAddButton.UseVisualStyleBackColor = true;
+            // 
+            // RegKeyDelButton
+            // 
+            this.RegKeyDelButton.Location = new System.Drawing.Point(18, 61);
+            this.RegKeyDelButton.Name = "RegKeyDelButton";
+            this.RegKeyDelButton.Size = new System.Drawing.Size(75, 23);
+            this.RegKeyDelButton.TabIndex = 3;
+            this.RegKeyDelButton.Text = "删除";
+            this.RegKeyDelButton.UseVisualStyleBackColor = true;
+            // 
+            // RegKeyAddButton
+            // 
+            this.RegKeyAddButton.Location = new System.Drawing.Point(18, 32);
+            this.RegKeyAddButton.Name = "RegKeyAddButton";
+            this.RegKeyAddButton.Size = new System.Drawing.Size(75, 23);
+            this.RegKeyAddButton.TabIndex = 2;
+            this.RegKeyAddButton.Text = "新增";
+            this.RegKeyAddButton.UseVisualStyleBackColor = true;
+            // 
+            // RegKeyModiButton
+            // 
+            this.RegKeyModiButton.Location = new System.Drawing.Point(18, 3);
+            this.RegKeyModiButton.Name = "RegKeyModiButton";
+            this.RegKeyModiButton.Size = new System.Drawing.Size(75, 23);
+            this.RegKeyModiButton.TabIndex = 1;
+            this.RegKeyModiButton.Text = "修改";
+            this.RegKeyModiButton.UseVisualStyleBackColor = true;
+            // 
+            // RegKeyOutportButton
+            // 
+            this.RegKeyOutportButton.Location = new System.Drawing.Point(18, 208);
+            this.RegKeyOutportButton.Name = "RegKeyOutportButton";
+            this.RegKeyOutportButton.Size = new System.Drawing.Size(75, 23);
+            this.RegKeyOutportButton.TabIndex = 0;
+            this.RegKeyOutportButton.Text = "导出...";
+            this.RegKeyOutportButton.UseVisualStyleBackColor = true;
             // 
             // tab_StatusScan
             // 
             this.tab_StatusScan.Controls.Add(this.splitContainer6);
             this.tab_StatusScan.Location = new System.Drawing.Point(4, 24);
             this.tab_StatusScan.Name = "tab_StatusScan";
-            this.tab_StatusScan.Size = new System.Drawing.Size(709, 461);
+            this.tab_StatusScan.Size = new System.Drawing.Size(1020, 470);
             this.tab_StatusScan.TabIndex = 10;
             this.tab_StatusScan.Text = "状态检测";
             this.tab_StatusScan.UseVisualStyleBackColor = true;
@@ -1782,7 +2702,7 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.chkStatus_rtb);
-            this.splitContainer6.Size = new System.Drawing.Size(709, 461);
+            this.splitContainer6.Size = new System.Drawing.Size(1020, 470);
             this.splitContainer6.SplitterDistance = 79;
             this.splitContainer6.TabIndex = 1;
             // 
@@ -1797,7 +2717,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(709, 79);
+            this.groupBox1.Size = new System.Drawing.Size(1020, 79);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "主机运行状态检测";
@@ -1865,7 +2785,7 @@
             this.chkStatus_rtb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkStatus_rtb.Location = new System.Drawing.Point(0, 0);
             this.chkStatus_rtb.Name = "chkStatus_rtb";
-            this.chkStatus_rtb.Size = new System.Drawing.Size(709, 378);
+            this.chkStatus_rtb.Size = new System.Drawing.Size(1020, 387);
             this.chkStatus_rtb.TabIndex = 0;
             this.chkStatus_rtb.Text = "";
             // 
@@ -1875,12 +2795,12 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(911, 544);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1303, 553);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(911, 569);
+            this.toolStripContainer1.Size = new System.Drawing.Size(1303, 578);
             this.toolStripContainer1.TabIndex = 0;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -1943,109 +2863,16 @@
             this.退出EToolStripMenuItem1.Text = "退出(&E)";
             this.退出EToolStripMenuItem1.Click += new System.EventHandler(this.退出EToolStripMenuItem1_Click);
             // 
-            // ctm_secvice
+            // oFD_Script
             // 
-            this.ctm_secvice.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.ctm_secvice.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.刷新toolStripMenuItem1,
-            this.启动toolStripMenuItem1,
-            this.停止toolStripMenuItem1,
-            this.启动类型toolStripMenuItem1});
-            this.ctm_secvice.Name = "ctm_secvice";
-            this.ctm_secvice.Size = new System.Drawing.Size(145, 108);
-            // 
-            // 启动toolStripMenuItem1
-            // 
-            this.启动toolStripMenuItem1.Name = "启动toolStripMenuItem1";
-            this.启动toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
-            this.启动toolStripMenuItem1.Text = "启动";
-            this.启动toolStripMenuItem1.Click += new System.EventHandler(this.启动toolStripMenuItem1_Click);
-            // 
-            // 停止toolStripMenuItem1
-            // 
-            this.停止toolStripMenuItem1.Name = "停止toolStripMenuItem1";
-            this.停止toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
-            this.停止toolStripMenuItem1.Text = "停止";
-            this.停止toolStripMenuItem1.Click += new System.EventHandler(this.停止toolStripMenuItem1_Click);
-            // 
-            // 启动类型toolStripMenuItem1
-            // 
-            this.启动类型toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.自动toolStripMenuItem1,
-            this.手动toolStripMenuItem1,
-            this.禁止toolStripMenuItem1});
-            this.启动类型toolStripMenuItem1.Name = "启动类型toolStripMenuItem1";
-            this.启动类型toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
-            this.启动类型toolStripMenuItem1.Text = "启动类型";
-            // 
-            // 自动toolStripMenuItem1
-            // 
-            this.自动toolStripMenuItem1.Name = "自动toolStripMenuItem1";
-            this.自动toolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
-            this.自动toolStripMenuItem1.Text = "自动";
-            this.自动toolStripMenuItem1.Click += new System.EventHandler(this.自动toolStripMenuItem1_Click);
-            // 
-            // 手动toolStripMenuItem1
-            // 
-            this.手动toolStripMenuItem1.Name = "手动toolStripMenuItem1";
-            this.手动toolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
-            this.手动toolStripMenuItem1.Text = "手动";
-            this.手动toolStripMenuItem1.Click += new System.EventHandler(this.手动toolStripMenuItem1_Click);
-            // 
-            // 禁止toolStripMenuItem1
-            // 
-            this.禁止toolStripMenuItem1.Name = "禁止toolStripMenuItem1";
-            this.禁止toolStripMenuItem1.Size = new System.Drawing.Size(181, 26);
-            this.禁止toolStripMenuItem1.Text = "禁止";
-            this.禁止toolStripMenuItem1.Click += new System.EventHandler(this.禁止toolStripMenuItem1_Click);
-            // 
-            // 刷新toolStripMenuItem1
-            // 
-            this.刷新toolStripMenuItem1.Name = "刷新toolStripMenuItem1";
-            this.刷新toolStripMenuItem1.Size = new System.Drawing.Size(144, 26);
-            this.刷新toolStripMenuItem1.Text = "刷新";
-            this.刷新toolStripMenuItem1.Click += new System.EventHandler(this.刷新toolStripMenuItem1_Click);
-            // 
-            // ctm_startup
-            // 
-            this.ctm_startup.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.ctm_startup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.刷新toolStripMenuItem2,
-            this.禁用toolStripMenuItem2});
-            this.ctm_startup.Name = "ctm_startup";
-            this.ctm_startup.Size = new System.Drawing.Size(115, 56);
-            // 
-            // 刷新toolStripMenuItem2
-            // 
-            this.刷新toolStripMenuItem2.Name = "刷新toolStripMenuItem2";
-            this.刷新toolStripMenuItem2.Size = new System.Drawing.Size(114, 26);
-            this.刷新toolStripMenuItem2.Text = "刷新";
-            this.刷新toolStripMenuItem2.Click += new System.EventHandler(this.刷新toolStripMenuItem2_Click);
-            // 
-            // 禁用toolStripMenuItem2
-            // 
-            this.禁用toolStripMenuItem2.Name = "禁用toolStripMenuItem2";
-            this.禁用toolStripMenuItem2.Size = new System.Drawing.Size(114, 26);
-            this.禁用toolStripMenuItem2.Text = "禁用";
-            this.禁用toolStripMenuItem2.Click += new System.EventHandler(this.禁用toolStripMenuItem2_Click);
-            // 
-            // columnHeader16
-            // 
-            this.columnHeader16.Text = "执行路径";
-            // 
-            // columnHeader17
-            // 
-            this.columnHeader17.Text = "进程Id";
-            // 
-            // columnHeader18
-            // 
-            this.columnHeader18.Text = "全称";
+            this.oFD_Script.FileName = "openFileDialog1";
+            this.oFD_Script.Filter = "BAT文件|*.bat|EXE文件|*.exe|VBS文件|*.vbs";
             // 
             // frm_Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 569);
+            this.ClientSize = new System.Drawing.Size(1303, 578);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.tls_Main);
             this.Controls.Add(this.sts_Main);
@@ -2112,7 +2939,32 @@
             this.splitContainer4.Panel2.ResumeLayout(false);
             this.splitContainer4.ResumeLayout(false);
             this.tab_Soft.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.ResumeLayout(false);
+            this.splitContainer8.Panel1.ResumeLayout(false);
+            this.splitContainer8.Panel2.ResumeLayout(false);
+            this.splitContainer8.Panel2.PerformLayout();
+            this.splitContainer8.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.Script_bat.ResumeLayout(false);
+            this.splitContainer9.Panel1.ResumeLayout(false);
+            this.splitContainer9.Panel2.ResumeLayout(false);
+            this.splitContainer9.Panel2.PerformLayout();
+            this.splitContainer9.ResumeLayout(false);
+            this.Script_rar.ResumeLayout(false);
+            this.splitContainer10.Panel1.ResumeLayout(false);
+            this.splitContainer10.Panel2.ResumeLayout(false);
+            this.splitContainer10.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.splitContainer11.Panel1.ResumeLayout(false);
+            this.splitContainer11.Panel2.ResumeLayout(false);
+            this.splitContainer11.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptRARFile1_dGV)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScriptRARFile2_dGV)).EndInit();
             this.tab_process.ResumeLayout(false);
             this.splitContainer7.Panel1.ResumeLayout(false);
             this.splitContainer7.Panel2.ResumeLayout(false);
@@ -2121,7 +2973,19 @@
             this.tabPage1.ResumeLayout(false);
             this.ctm_process.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.ctm_secvice.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.ctm_startup.ResumeLayout(false);
+            this.tab_Regedit.ResumeLayout(false);
+            this.splitContainer12.Panel1.ResumeLayout(false);
+            this.splitContainer12.Panel2.ResumeLayout(false);
+            this.splitContainer12.ResumeLayout(false);
+            this.splitContainer13.Panel1.ResumeLayout(false);
+            this.splitContainer13.Panel2.ResumeLayout(false);
+            this.splitContainer13.ResumeLayout(false);
+            this.splitContainer14.Panel1.ResumeLayout(false);
+            this.splitContainer14.Panel2.ResumeLayout(false);
+            this.splitContainer14.ResumeLayout(false);
             this.tab_StatusScan.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
@@ -2131,8 +2995,6 @@
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
             this.cnm_notifyIcon.ResumeLayout(false);
-            this.ctm_secvice.ResumeLayout(false);
-            this.ctm_startup.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2312,6 +3174,71 @@
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.ColumnHeader columnHeader17;
         private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.SplitContainer splitContainer8;
+        private System.Windows.Forms.RichTextBox Script_rtb;
+        private System.Windows.Forms.Button ScriptFileOpenButton;
+        private System.Windows.Forms.Button ScriptSendButton;
+        private System.Windows.Forms.TextBox Script_filepath_tB;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage Script_bat;
+        private System.Windows.Forms.SplitContainer splitContainer9;
+        private System.Windows.Forms.RichTextBox ScriptBatEdit_rtb;
+        private System.Windows.Forms.Button ScriptBatSendButton;
+        private System.Windows.Forms.Button ScriptBatLocalTestButton;
+        private System.Windows.Forms.Button ScriptBatClipboardButton;
+        private System.Windows.Forms.TabPage Script_rar;
+        private System.Windows.Forms.SplitContainer splitContainer10;
+        private System.Windows.Forms.Button ScriptRARLocalTestButton;
+        private System.Windows.Forms.Button ScriptRarSend;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox ScriptRAR3_cB;
+        private System.Windows.Forms.CheckBox ScriptRAR2_cB;
+        private System.Windows.Forms.CheckBox ScriptRAR1_cB;
+        private System.Windows.Forms.SplitContainer splitContainer11;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView ScriptRARFile1_dGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewButtonColumn Column5;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridView ScriptRARFile2_dGV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewButtonColumn Column6;
+        private System.Windows.Forms.DataGridViewButtonColumn Column4;
+        private System.Windows.Forms.OpenFileDialog oFD_Script;
+        private System.Windows.Forms.TextBox Script_paramerer_tB;
+        private System.Windows.Forms.CheckBox Script_IsWaiting_cB;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button ScriptBatCheckButton;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox Script_bat_paramerer_tB;
+        private System.Windows.Forms.Button ScriptBatClearButton;
+        private System.Windows.Forms.CheckBox Script_bat_IsWaiting_cB;
+        private System.Windows.Forms.TextBox ScriptRAR_pamarerer_tB;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.SplitContainer splitContainer12;
+        private System.Windows.Forms.TreeView Reg_tV;
+        private System.Windows.Forms.SplitContainer splitContainer13;
+        private System.Windows.Forms.ListView Reg_lV;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.SplitContainer splitContainer14;
+        private CCWin.SkinControl.RtfRichTextBox Reg_rTB;
+        private System.Windows.Forms.Button RegImportButton;
+        private System.Windows.Forms.Button RegDirDelButton;
+        private System.Windows.Forms.Button RegDirModiButton;
+        private System.Windows.Forms.Button RegDirAddButton;
+        private System.Windows.Forms.Button RegKeyDelButton;
+        private System.Windows.Forms.Button RegKeyAddButton;
+        private System.Windows.Forms.Button RegKeyModiButton;
+        private System.Windows.Forms.Button RegKeyOutportButton;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel CurrentIP_tSSL;
     }
 }
 

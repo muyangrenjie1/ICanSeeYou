@@ -11,6 +11,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using System.ServiceProcess;
+using System.Collections;
+using System.Text.RegularExpressions;
 namespace ICanSeeYou.Windows
 {
 
@@ -48,7 +50,52 @@ namespace ICanSeeYou.Windows
             Online_Order += (int.Parse(WMI_Searcher("SELECT * FROM Win32_OperatingSystem", "TotalVisibleMemorySize")) / 1024) + " MB"+System .Environment .NewLine ;
             return Online_Order;
         }
+        /// <summary>
+        /// 发送文本到剪贴板
+        /// </summary>
+        /// <param name="str"></param>
+        public static void SendToClipboard(string str)
+        { Clipboard.SetText(str); }
+       /// <summary>
+       /// 从剪贴板获取文本
+       /// </summary>
+       /// <returns></returns>
+        public static string ReadFromClipboard()
+        {
+          
+            IDataObject iData = Clipboard.GetDataObject();
+            if (iData.GetDataPresent(DataFormats.Text))
+            {
+                return (string)iData.GetData(DataFormats.Text);
+            }
+            else
+                return "";
 
+        }
+        /// <summary>
+        /// 运行exe、bat、vbs文件
+        /// </summary>
+        /// <param name="filepath"></param>
+        /// <param name="WaitOver"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public static string RunExeFile(string filepath, bool WaitOver,string parameter)
+        {
+            try
+            {
+                System.Diagnostics.Process exep = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.FileName = filepath;
+                startInfo.Arguments = parameter;
+                startInfo.CreateNoWindow = true;
+                startInfo.UseShellExecute = false;
+                exep.StartInfo = startInfo;
+                exep.Start();
+                if (WaitOver) exep.WaitForExit();//关键，等待外部程序退出后才能往下执行
+                return "执行成功";
+            }
+            catch { return "执行失败"; }
+        }
 
         #region WMI 操作相关及扩展
 
@@ -297,6 +344,8 @@ namespace ICanSeeYou.Windows
             //如果是检索根键值下面的子项 
             else
             {
+                //去除Key_Path首位的\\，如果有
+                while (Key_Path.IndexOf("\\") == 0) Key_Path = Key_Path.Remove(0, 1);
                 //判断键值路径所属的根键 
                 switch (Key_Model)
                 {
@@ -323,7 +372,8 @@ namespace ICanSeeYou.Windows
                 }
             }
 
-            //返回目录名集合 
+            //返回目录名集合 包含除根目录外的全路径，如path1\path2\path3形式
+            for (int i = 0; i < Names.Length; i++) Names[i] = Key_Path + "\\" + Names[i];
             return Names;
         }
        
@@ -400,6 +450,8 @@ namespace ICanSeeYou.Windows
             //如果是检索根键值下面的子项 
             else
             {
+                //去除Key_Path首位的\\，如果有
+                while (Key_Path.IndexOf("\\") == 0) Key_Path = Key_Path.Remove(0, 1);
                 //判断键值路径所属的根键 
                 switch (Key_Model)
                 {
@@ -459,7 +511,132 @@ namespace ICanSeeYou.Windows
             //返回目录名集合 
             return Result_List.Split('|');
         }
+        public static string [] Get_Register_Root_ALLValues(String Key_Model, String Key_Path)
+        {
+            //新建数组，用来储存子项名字集合 
+            String Result_List = "";
+            //如果是检索根键值 
+            if (Key_Path == "")
+            {
+                //判断键值路径所属的根键 
+                switch (Key_Model)
+                {
+                    //如果是HKEY_CLASSES_ROOT下面的 
+                    case "HKEY_CLASSES_ROOT":
+                        using (RegistryKey RK = Registry.ClassesRoot)
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_CURRENT_CONFIG下面的 
+                    case "HKEY_CURRENT_CONFIG":
+                        using (RegistryKey RK = Registry.CurrentConfig)
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" +RK.GetValueKind(VName ) .ToString ()+"####"+ RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_CURRENT_USER下面的 
+                    case "HKEY_CURRENT_USER":
+                        using (RegistryKey RK = Registry.CurrentUser)
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_LOCAL_MACHINE下面的 
+                    case "HKEY_LOCAL_MACHINE":
+                        using (RegistryKey RK = Registry.LocalMachine)
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_USERS下面的 
+                    case "HKEY_USERS":
+                        using (RegistryKey RK = Registry.Users)
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                }
+            }
+            //如果是检索根键值下面的子项 
+            else
+            {
+                //去除Key_Path首位的\\，如果有
+                while (Key_Path.IndexOf("\\") == 0) Key_Path = Key_Path.Remove(0, 1);
+                //判断键值路径所属的根键 
+                switch (Key_Model)
+                {
+                    //如果是HKEY_CLASSES_ROOT下面的 
+                    case "HKEY_CLASSES_ROOT":
+                        using (RegistryKey RK = Registry.ClassesRoot.OpenSubKey(Key_Path))
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_CURRENT_CONFIG下面的 
+                    case "HKEY_CURRENT_CONFIG":
+                        using (RegistryKey RK = Registry.CurrentConfig.OpenSubKey(Key_Path))
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_CURRENT_USER下面的 
+                    case "HKEY_CURRENT_USER":
+                        using (RegistryKey RK = Registry.CurrentUser.OpenSubKey(Key_Path))
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_LOCAL_MACHINE下面的 
+                    case "HKEY_LOCAL_MACHINE":
+                        using (RegistryKey RK = Registry.LocalMachine.OpenSubKey(Key_Path))
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                    //如果是HKEY_USERS下面的 
+                    case "HKEY_USERS":
+                        using (RegistryKey RK = Registry.Users.OpenSubKey(Key_Path))
+                        {
+                            foreach (String VName in RK.GetValueNames())
+                            {
+                                Result_List += VName + "####" + RK.GetValueKind(VName).ToString() + "####" + RK.GetValue(VName).ToString() + "||||";
+                            }
+                        }
+                        break;
+                }
+            }
 
+            //返回目录名集合 
+            return Regex.Split(Result_List, "\\|\\|\\|\\|", RegexOptions.None);
+        }
         #endregion
 
         #region 系统DOS相关操作

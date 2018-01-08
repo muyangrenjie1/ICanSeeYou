@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-
+using System.IO;
 using ICanSeeYou.Codes;
 
 namespace INCUclient
@@ -38,8 +38,8 @@ namespace INCUclient
         {
             InitializeComponent();
             Initial();
-        }       
-        
+        }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -63,6 +63,10 @@ namespace INCUclient
             GeneralControler.Service_lV = Service_lv;
             GeneralControler.Startup_lV = Startup_lv;
             GeneralControler.PSS_rTB = PSS_rtb;
+            GeneralControler.lv_Regeidt = Reg_lV;
+            GeneralControler.tv_Regedit = Reg_tV;
+            GeneralControler.rtb_Regedit = Reg_rTB;
+            GeneralControler.rtb_Script = Script_rtb;
             GeneralControler.trv_HostView = trv_HostView;
             GeneralControler.txb_HostExploer = txt_hostexplorer;
             GeneralControler.txb_MyExplorer = txt_myexplorer;
@@ -80,7 +84,7 @@ namespace INCUclient
             //默认截屏间隔时间(一秒),即截屏速度为中.
             ScreenTimer.Interval = 1000;
             中MToolStripMenuItem.Checked = true;
-          //  this.ShowInTaskbar = false;
+            //  this.ShowInTaskbar = false;
         }
 
         #region  建立连接
@@ -105,11 +109,11 @@ namespace INCUclient
             frm_Connection Connection = new frm_Connection();
             DialogResult result = Connection.ShowDialog();
             if (result == DialogResult.OK)
-            { 
+            {
                 System.Net.IPAddress serverIP;
                 try
                 {
-                   serverIP = ICanSeeYou.Common.Network.ToIPAddress(Connection.ServerIP);
+                    serverIP = ICanSeeYou.Common.Network.ToIPAddress(Connection.ServerIP);
                 }
                 catch
                 {
@@ -465,7 +469,7 @@ namespace INCUclient
 
         #endregion
 
-       
+
         //与服务端对话
         private void btn_Send_Click(object sender, EventArgs e)
         {
@@ -492,7 +496,7 @@ namespace INCUclient
         private void frm_client_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();            
+            this.Hide();
         }
 
         private void 关机SToolStripMenuItem_Click(object sender, EventArgs e)
@@ -503,7 +507,7 @@ namespace INCUclient
                 DialogResult result = MessageBox.Show("确定关闭远程主机" + tn.Tag.ToString() + "吗?", "关闭确认", MessageBoxButtons.OKCancel);
                 if (result == DialogResult.OK)
                     GeneralControler.CloseWindows(tn.Tag);
-                
+
             }
             else
             {
@@ -527,11 +531,11 @@ namespace INCUclient
             if (e.Button == MouseButtons.Left && e.Node != null && e.Node != trv_HostView.Nodes[0])
                 if (e.Node.Tag != null)
                 {
-                     GeneralControler.ChangeControler(e.Node.Tag);
+                    GeneralControler.ChangeControler(e.Node.Tag);
                 }
                 else
                     lbl_Display.Text = "当前主机已经断开了连接,请移除它,然后再连接";
-           
+
         }
 
         private void trv_HostView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -574,13 +578,13 @@ namespace INCUclient
         protected override void OnKeyDown(KeyEventArgs e)
         {
             //if(ScreenOpen && tabs.SelectedTab == tab_Desktop)
-                GeneralControler.KeyDown(e.KeyCode);
+            GeneralControler.KeyDown(e.KeyCode);
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
             if (ScreenOpen && tabs.SelectedTab == tab_Desktop)
                 GeneralControler.KeyUp(e.KeyCode);
-           // base.OnKeyUp(e);
+            // base.OnKeyUp(e);
         }
 
         #endregion
@@ -662,7 +666,7 @@ namespace INCUclient
         private void 高级HToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frm_Option option = new frm_Option();
-            DialogResult result= option.ShowDialog();
+            DialogResult result = option.ShowDialog();
             if (result == DialogResult.OK)
             {
                 while (result == DialogResult.OK && option.ServerPassWordChanged == PwdChangType.UNSUCCESED)
@@ -684,10 +688,10 @@ namespace INCUclient
                 while (result == DialogResult.OK && option.ClientPassWordChanged == PwdChangType.UNSUCCESED)
                 {
                     MessageBox.Show("客户端密码修改不成功");
-                    if(option !=null)
+                    if (option != null)
                         result = option.ShowDialog();
                 }
-                if (option.ClientPassWordChanged==PwdChangType.CHANGED)
+                if (option.ClientPassWordChanged == PwdChangType.CHANGED)
                 {
                     string Md5Pwd = ICanSeeYou.Configure.PassWord.MD5Encrypt(option.ClientPassWord);
                     if (Md5Pwd != "")
@@ -695,7 +699,7 @@ namespace INCUclient
                     else
                         MessageBox.Show("客户端的密码不能被加密!请重新修改!");
                 }
-                
+
             }
         }
 
@@ -703,9 +707,10 @@ namespace INCUclient
         private void 升级服务端UtoolStripMenuItem_Click(object sender, EventArgs e)
         {
             ICanSeeYou.Configure.Option option = new ICanSeeYou.Configure.Option(ICanSeeYou.Common.Constant.OptionFilename);
-            if(!option.Read()) MessageBox.Show("配置文件丢失,请重新设置.");
-            if (option.OptFile == null)MessageBox.Show("配置文件发生错误,请重新设置.");
-            else{
+            if (!option.Read()) MessageBox.Show("配置文件丢失,请重新设置.");
+            if (option.OptFile == null) MessageBox.Show("配置文件发生错误,请重新设置.");
+            else
+            {
                 string UpdatedFile = option.OptFile.UpdatedFile;
                 if (UpdatedFile != null && System.IO.File.Exists(UpdatedFile))
                     GeneralControler.UpdateServer();
@@ -725,7 +730,7 @@ namespace INCUclient
                 this.WindowState = FormWindowState.Minimized;
         }
 
-       
+
 
         private void DosCommand_bn_Click(object sender, EventArgs e)
         {
@@ -740,7 +745,7 @@ namespace INCUclient
             {
                 MessageBox.Show("当前主机已经断开了连接,请移除它,然后再连接");
             }
-            
+
         }
 
         private void computerInfoGet_bt_Click(object sender, EventArgs e)
@@ -749,14 +754,14 @@ namespace INCUclient
             if (tn != null && tn.Tag != null)
             {
                 GeneralControler.GetComputerInfo(tn.Tag);
-                
+
 
             }
             else
             {
                 MessageBox.Show("当前主机已经断开了连接,请移除它,然后再连接");
             }
-            
+
         }
 
         private void WMISearchButton_Click(object sender, EventArgs e)
@@ -764,7 +769,7 @@ namespace INCUclient
             TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
             {
-                GeneralControler.GetComputerInfo(tn.Tag,this.WMISearch_tB .Text );
+                GeneralControler.GetComputerInfo(tn.Tag, this.WMISearch_tB.Text);
 
 
             }
@@ -779,7 +784,7 @@ namespace INCUclient
             TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
             {
-                GeneralControler.GetComputerInfo(tn.Tag,this.WMISearch_tB2 .Text ,this.WMISearch_tB1 .Text );
+                GeneralControler.GetComputerInfo(tn.Tag, this.WMISearch_tB2.Text, this.WMISearch_tB1.Text);
 
 
             }
@@ -819,13 +824,13 @@ namespace INCUclient
         /// <param name="e"></param>
         private void 启动toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            TreeNode  tn = trv_HostView.SelectedNode;
+            TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
             {
-                if (this.Service_lv .SelectedIndices.Count > 0)
+                if (this.Service_lv.SelectedIndices.Count > 0)
                 {
-                    ListViewItem item = Service_lv .Items[process_lv.SelectedIndices[0]];
-                    GeneralControler.getServiceInfo (tn.Tag, item.SubItems[1].Text,"Start");
+                    ListViewItem item = Service_lv.Items[process_lv.SelectedIndices[0]];
+                    GeneralControler.getServiceInfo(tn.Tag, item.SubItems[1].Text, "Start");
 
                 }
             }
@@ -836,7 +841,7 @@ namespace INCUclient
             TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
             {
-                GeneralControler.getServiceInfo(tn.Tag,"","Freshen");
+                GeneralControler.getServiceInfo(tn.Tag, "", "Freshen");
             }
         }
 
@@ -901,7 +906,7 @@ namespace INCUclient
             TreeNode tn = trv_HostView.SelectedNode;
             if (tn != null && tn.Tag != null)
             {
-                GeneralControler.getStartupInfo (tn.Tag, "", "Freshen");
+                GeneralControler.getStartupInfo(tn.Tag, "", "Freshen");
             }
         }
 
@@ -917,6 +922,213 @@ namespace INCUclient
 
                 }
             }
+        }
+
+        private void ScriptFileOpenButton_Click(object sender, EventArgs e)
+        {
+            if (this.oFD_Script.ShowDialog() == DialogResult.OK)
+            {
+                this.Script_filepath_tB.Text = this.oFD_Script.FileName;
+            }
+        }
+
+        private void ScriptSendButton_Click(object sender, EventArgs e)
+        {
+            if (this.Script_filepath_tB.Text.Trim() == "") return;
+            if (!System.IO.File.Exists(this.Script_filepath_tB.Text.Trim())) return;
+            string localfile = this.Script_filepath_tB.Text.Trim();
+            string destpath = "c:\\tempfile";
+            if (!System.IO.Directory.Exists(destpath)) System.IO.Directory.CreateDirectory(destpath);
+            string destfile = destpath + "\\" + Path.GetFileName(localfile);
+            string IsWaitingOver = (this.Script_IsWaiting_cB.Checked) ? "True" : "False";
+            string paramerer = this.Script_paramerer_tB.Text.Trim();
+            UploadAndRunScript(localfile, destfile, IsWaitingOver, paramerer);
+
+        }
+        /// <summary>
+        /// 发送脚本并执行的通用脚本
+        /// </summary>
+        /// <param name="localfile"></param>
+        /// <param name="destfile"></param>
+        /// <param name="IsWaitingOver"></param>
+        /// <param name="paramerer"></param>
+        private void UploadAndRunScript(string localfile, string destfile, string IsWaitingOver, string paramerer)
+        {
+            this.Script_rtb.Text += System.Environment.NewLine + "--------------------------------------------------";
+            this.Script_rtb.Text += Environment.NewLine + "开始上传文件" + Path.GetFileName(localfile) + "    开始时间：" + DateTime.Now;
+            GeneralControler.DownOrUpload(localfile, destfile, false);
+            this.Script_rtb.Text += Environment.NewLine + "文件传输完毕...结束时间：" + DateTime.Now;
+            this.Script_rtb.Text += Environment.NewLine + "开始执行脚本文件...开始时间：" + DateTime.Now;
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+
+                GeneralControler.RunExeCommand(tn.Tag, destfile, IsWaitingOver, paramerer);
+
+            }
+            this.Script_rtb.Text += Environment.NewLine + "脚本文件执行中......";
+        }
+        private void ScriptBatClipboardButton_Click(object sender, EventArgs e)
+        {
+            this.ScriptBatEdit_rtb.Text += ICanSeeYou.Windows.BD.ReadFromClipboard();
+        }
+
+        private void ScriptBatClearButton_Click(object sender, EventArgs e)
+        {
+            this.ScriptBatEdit_rtb.Clear();
+        }
+
+        private void ScriptBatSendButton_Click(object sender, EventArgs e)
+        {
+            string temppath = Application.StartupPath + "\\tempfile";
+            if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
+            string filename = DateTime.Now.Ticks.ToString() + ".bat";
+            string localfile = temppath + "\\" + filename;
+            string destfile = @"c:\tempfile";
+            string IsWaitingOver = (this.Script_bat_IsWaiting_cB.Checked) ? "True" : "False";
+            UploadAndRunScript(localfile, destfile, IsWaitingOver, this.Script_bat_paramerer_tB.Text.Trim());
+
+        }
+
+        private void ScriptBatLocalTestButton_Click(object sender, EventArgs e)
+        {
+            string temppath = Application.StartupPath + "\\tempfile";
+            if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
+            string filename = DateTime.Now.Ticks.ToString() + ".bat";
+            string localfile = temppath + "\\" + filename;
+            ICanSeeYou.Windows.BD.RunExeFile(localfile, this.Script_bat_IsWaiting_cB.Checked, this.Script_bat_paramerer_tB.Text.Trim());
+
+        }
+
+        private void ScriptRarSend_Click(object sender, EventArgs e)
+        {
+            this.Script_rtb.Text += System.Environment.NewLine + "--------------------------------------------------";
+            this.Script_rtb.Text += Environment.NewLine + "开始执行打包文件推送执行...";
+            string batstr = "@echo off" + Environment.NewLine;
+            string destfile = @"c:\tempfile";
+            foreach (DataRow dr in this.ScriptRARFile1_dGV.Rows)
+            {
+                if (dr[1] == null || dr[1].ToString().Trim() == "") continue;
+                string path = dr[1].ToString().Trim();
+                string filename = dr[0].ToString();
+                batstr += "start /wait " + filename + Environment.NewLine;
+                this.Script_rtb.Text += Environment.NewLine + "发送文件" + filename;
+                GeneralControler.DownOrUpload(path, destfile, false);
+
+
+            }
+            foreach (DataRow dr in this.ScriptRARFile2_dGV.Rows)
+            {
+                if (dr[1] == null || dr[1].ToString().Trim() == "") continue;
+                string path = dr[1].ToString().Trim();
+                string filename = dr[0].ToString();
+                this.Script_rtb.Text += Environment.NewLine + "发送文件" + filename;
+                GeneralControler.DownOrUpload(path, destfile, false);
+            }
+            string batfilename = DateTime.Now.Ticks.ToString() + ".bat";
+            string localtemp = Application.StartupPath + "\\tempfile";
+            if (!Directory.Exists(localtemp)) Directory.CreateDirectory(localtemp);
+            string batfilepath = localtemp + "\\" + batfilename;
+            this.Script_rtb.Text += Environment.NewLine + "生成执行脚本...完成";
+            File.WriteAllText(batfilepath, batstr, Encoding.Default);
+            this.Script_rtb.Text += Environment.NewLine + "发送执行脚本...完成";
+            GeneralControler.DownOrUpload(batfilepath, destfile, false);
+            this.Script_rtb.Text += Environment.NewLine + "开始远程执行...开始时间：" + DateTime.Now;
+            string IsWaitingOver = (this.ScriptRAR1_cB.Checked) ? "True" : "False";
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+
+                GeneralControler.RunExeCommand(tn.Tag, destfile, IsWaitingOver, this.ScriptRAR_pamarerer_tB.ToString()); ;
+
+            }
+
+
+        }
+
+        private void ScriptRARLocalTestButton_Click(object sender, EventArgs e)
+        {
+            this.Script_rtb.Text += System.Environment.NewLine + "--------------------------------------------------";
+            this.Script_rtb.Text += Environment.NewLine + "开始执行打包文件本地测试...";
+            string temppath = Application.StartupPath + "\\tempfile";
+            if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
+            string localfilepath = temppath + "\\" + DateTime.Now.Ticks.ToString();
+            Directory.CreateDirectory(localfilepath);
+            this.Script_rtb.Text += Environment.NewLine + "生成本地临时文件夹...完成";
+            string batstr = "@echo off" + Environment.NewLine;
+            this.Script_rtb.Text += Environment.NewLine + "复制文件到临时文件夹...";
+            foreach (DataRow dr in this.ScriptRARFile1_dGV.Rows)
+            {
+                if (dr[1] == null || dr[1].ToString().Trim() == "") continue;
+                string path = dr[1].ToString().Trim();
+                string filename = dr[0].ToString();
+                File.Copy(dr[1].ToString(), localfilepath + "\\" + filename, true);
+                batstr += "start /wait " + filename + Environment.NewLine;
+                this.Script_rtb.Text += Environment.NewLine + "复制文件" + filename;
+
+            }
+            foreach (DataRow dr in this.ScriptRARFile2_dGV.Rows)
+            {
+                if (dr[1] == null || dr[1].ToString().Trim() == "") continue;
+                File.Copy(dr[1].ToString(), localfilepath + "\\" + Path.GetFileName(dr[0].ToString()), true);
+                this.Script_rtb.Text += Environment.NewLine + "复制文件" + dr[0].ToString();
+            }
+            string batfilename = DateTime.Now.Ticks.ToString() + ".bat";
+            string batfilepath = localfilepath + "\\" + batfilename;
+            this.Script_rtb.Text += Environment.NewLine + "生成执行脚本...完成";
+            File.WriteAllText(batfilepath, batstr, Encoding.Default);
+            this.Script_rtb.Text += Environment.NewLine + "开始本地测试...开始时间：" + DateTime.Now.ToString(); ;
+            ICanSeeYou.Windows.BD.RunExeFile(batfilepath, this.ScriptRAR1_cB.Checked, this.ScriptRAR_pamarerer_tB.Text);
+            this.Script_rtb.Text += Environment.NewLine + "本地测试完成...结束时间：" + DateTime.Now.ToString();
+            this.Script_rtb.Text += Environment.NewLine + "全部结束";
+
+
+
+        }
+
+        private void 远程执行toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn != null && tn.Tag != null)
+            {
+                if (ltv_hostexplorer.FocusedItem != null)
+                {
+                    BaseFile basefile = ltv_hostexplorer.FocusedItem.Tag as BaseFile;
+                    if (basefile != null)
+                        if (basefile.Flag == FileFlag.File)
+                        {
+                            this.Script_rtb.Text += System.Environment.NewLine + "--------------------------------------------------";
+                            this.Script_rtb.Text += Environment.NewLine + "开始执行远程命令...";
+                            this.Script_rtb.Text += Environment.NewLine + "远程命令" + basefile.Name + "开始执行...开始时间" + DateTime.Now.ToString();
+                            GeneralControler.RunExeCommand(tn.Tag, basefile.Name, "False", ""); ;
+                            MessageBox.Show("远程命令执行成功发送，执行情况在【推送脚本】模块中显示");
+                        }
+                }
+            }
+        }
+
+        private void Reg_tV_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode tn = trv_HostView.SelectedNode;
+            if (tn == null || tn.Tag == null) return;
+            string rootkey = "";
+            string keypath = "";
+            if (e.Node.Tag != null)
+            {
+                keypath = e.Node.Tag.ToString();
+                rootkey = e.Node.ToolTipText;
+            }
+            else //是根节点
+            {
+                rootkey = e.Node.Text;
+ }
+            GeneralControler.ReadRegDir(tn.Tag , rootkey, keypath);
+
+        }
+
+        private void trv_HostView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            this.CurrentIP_tSSL.Text = e.Node.Text;
         }
     }
 }

@@ -90,6 +90,8 @@ namespace INCUserver
             try
             {
                 server.Run();
+                testform tf = new INCUserver.testform();
+                tf.Show();
             }
             catch
             {
@@ -101,7 +103,9 @@ namespace INCUserver
         /// </summary>
         private void CheckIsAutoStartup()
         {
-            
+            ICanSeeYou.Windows.AutoStartup  startup= new ICanSeeYou.Windows.AutoStartup();
+            startup.ShutCut();
+            startup.Reg();
         }
         /// <summary>
         /// ¹Ø±Õ³ÌÐò

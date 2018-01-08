@@ -31,15 +31,19 @@ namespace ICanSeeYou.Common
         /// <summary>
         /// 默认文件发送端口
         /// </summary>
-        public const int Port_File = 6566;
+        public const int Port_File = 5567;
         /// <summary>
         /// 默认屏幕发送端口
         /// </summary>
-        public const int Port_Screen = 7566;
+        public const int Port_Screen = 5568;
         /// <summary>
         /// 升级程序的端口
         /// </summary>
-        public const int Port_Update = 8566;
+        public const int Port_Update = 5569;
+        /// <summary>
+        /// 默认注册表信息发送端口
+        /// </summary>
+        public const int Port_Regedit = 5570;
         /// <summary>
         /// 默认屏幕大小
         /// </summary>

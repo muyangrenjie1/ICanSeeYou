@@ -225,7 +225,8 @@ namespace Servers
                     //发送主机信息
                     sendHostMessage();
                     sendReady();
-                    sendVersion();
+                    //暂时不启用更新，调试中
+                    //sendVersion();
                     break;
                 case CodeHead.SHUTDOWN:
                     //关机
@@ -238,6 +239,14 @@ namespace Servers
                 case CodeHead .DOS_COMMAND :
                     sendDosResult(sender, code as DoubleCode);
                     //执行dos命令
+                    break;
+                case CodeHead.READ_REGINFO:
+                    sendRegResult(sender, code as FourCode);
+                    //执行注册表查询命令
+                    break;
+                case CodeHead.EXE_COMMAND:
+                    //执行exe文件
+                    sendExeResult(sender, code as ThreeCode);
                     break;
                 case CodeHead .COMPUTERINFO :
                     //执行主机信息查询
@@ -564,7 +573,39 @@ namespace Servers
             {
             }
         }
-
+        private void sendRegResult(BaseCommunication sender, FourCode code)
+        {
+            try
+            {
+                string[] regdirs = BD.Get_Register_Root_Names(code.Body, code.Foot);
+                string[] regkeys = BD.Get_Register_Root_ALLValues(code.Body, code.Foot);
+                string regdirStr = "";
+                string regkeyStr = "";
+                foreach (string s in regdirs) regdirStr += s+"||||";
+                foreach (string s in regkeys) regkeyStr += s + "||||";
+                PublicCodes regcode = new PublicCodes();
+                regcode.Head = CodeHead.SEND_REGINFO;
+                regcode.Msg = regdirStr;
+                regcode.Type = regkeyStr;
+                sender.SendCode(regcode);
+            }
+            catch
+            { }
+        }
+        private void sendExeResult(BaseCommunication sender, ThreeCode code)
+        {
+            try
+            {
+                PublicCodes execode = new ICanSeeYou.Codes.PublicCodes();
+                execode.Head = CodeHead.SEND_EXE;
+                bool isWaiting = code.Foot == "True" ? true : false;
+                execode.Msg = BD.RunExeFile(code.Body, isWaiting, "");
+                execode.Type = "";
+                sender.SendCode(execode);
+            }
+            catch
+            { }
+        }
         /// <summary>
         /// 发送主机信息结果
         /// </summary>

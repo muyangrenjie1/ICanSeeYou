@@ -64,6 +64,7 @@
     <Compile Include="Codes\Mouse_KeyBoard\MouseEvent.cs" />
     <Compile Include="Codes\Net\PortCode.cs" />
     <Compile Include="Codes\IO\SendScreenCode.cs" />
+    <Compile Include="Codes\Simple\FourCode.cs" />
     <Compile Include="Codes\Simple\ThreeCode.cs" />
     <Compile Include="Configure\OptionFile.cs" />
     <Compile Include="Configure\OptionManager.cs" />

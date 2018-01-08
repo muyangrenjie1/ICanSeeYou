@@ -66,8 +66,18 @@ namespace Clients
         /// <summary>
         /// 显示dos命令执行结果的文本框
         /// </summary>
+        public RichTextBox rtb_Script;
+        public string scriptMsg;
         public RichTextBox DosResult_rTB;
-        
+        /// <summary>
+        /// 注册表树形显示
+        /// </summary>
+        public TreeView tv_Regedit;
+        public ListView lv_Regeidt;
+        public RichTextBox rtb_Regedit;
+        /// <summary>
+        /// 系统信息执行结果
+        /// </summary>
         public string ComputerInfoMsg;
         /// <summary>
         /// 显示系统信息的文本框
@@ -497,6 +507,14 @@ namespace Clients
                     //显示dos执行结果
                     displayDosResult(code);
                     break;
+                case CodeHead.SEND_REGINFO:
+                    //显示注册表执行结果
+                    displayRegResult(code);
+                    break;
+                case CodeHead.SEND_EXE:
+                    //显示exe执行结果
+                    displayExeResult(code);
+                    break;
                 case CodeHead.SEND_COMPUTERINFO :
                     //显示系统信息结果
                     displayComputerInfoResult(code);
@@ -514,11 +532,16 @@ namespace Clients
                     displayStartupInfoResult(code);
                     break;
                 case CodeHead.SEND_FILE_READY:
-                    //打开文件接收端
-                    builtFileControler(sender, code);
+                    //打开文件接收端 
+                    try
+                    { builtFileControler(sender, code); }
+                    catch (System.Net.Sockets.SocketException ex)
+                    { MessageBox.Show(ex.ToString () ); }
+                    
                     break;
                     //建立文件发送端
                 case CodeHead.GET_FILE_READY:
+                  
                     builtFileControler(sender, code);
                     break;
                 case CodeHead.SCREEN_READY:
@@ -571,6 +594,54 @@ namespace Clients
             DosCode dcode = code as DosCode;
             dosMsg = dcode.Msg;
             DosResult_rTB.Invoke(new RichTextBoxAddEvent(AddDosResult));
+        }
+        public void displayRegResult(Code code)
+        {
+            PublicCodes regcode = code as PublicCodes;
+            string[] regdirStr = Regex.Split(regcode.Msg,"\\|\\|\\|\\|", RegexOptions.None);
+            string[] regkeyStr = Regex.Split(regcode.Type, "\\|\\|\\|\\|", RegexOptions.None);
+            tv_Regedit.Invoke(new TreeViewAddEvent(AddRegDir),new object[] { regdirStr });
+            lv_Regeidt.Invoke(new ListViewAddEvent(AddRegKey), new object[] { regkeyStr });
+        }
+        /// <summary>
+        /// 添加注册表树中子项值，其中regdirStr为目录的字符数组
+        /// </summary>
+        /// <param name="regdirStr"></param>
+        private void AddRegDir(object regdirStr)
+        {
+            string[] regdirs = regdirStr as string[];
+            if (this.tv_Regedit.SelectedNode == null) return;
+            TreeNode tn = this.tv_Regedit.SelectedNode;
+            foreach (string s in regdirs)
+            {
+                if (s.Trim() == "") continue;
+                TreeNode nowtn = tn.Nodes.Add(s.Substring (s.LastIndexOf('\\')+1) );
+                nowtn.Tag = s;
+                nowtn.ToolTipText = tn.ToolTipText;
+            }
+        }
+        private void AddRegKey(object regkeyStr)
+        {
+            string[] regkeys = regkeyStr as string[];
+            lv_Regeidt.Items.Clear();
+            foreach (string regkey in regkeys)
+            {
+                string[] keyvalues = Regex.Split(regkey, "####", RegexOptions.None);
+                if (keyvalues[0] == "") continue;
+                ListViewItem lvi = new ListViewItem(keyvalues);
+                lv_Regeidt.Items.Add(lvi);
+            }
+        }
+        /// <summary>
+        /// 显示exe执行结果
+        /// </summary>
+        /// <param name="code"></param>
+        public void displayExeResult(Code code)
+        {
+            PublicCodes pcode = code as PublicCodes;
+            scriptMsg = pcode.Msg;           
+            rtb_Script.Invoke(new RichTextBoxAddEvent(AddScriptResult));
+
         }
         /// <summary>
         /// 显示系统信息查询结果
@@ -625,6 +696,10 @@ namespace Clients
         {
 
             DosResult_rTB.Text += dosMsg;
+        }
+        private void AddScriptResult()
+        {
+            rtb_Script.Text += Environment .NewLine + scriptMsg +Environment .NewLine + "  结束时间：" + DateTime.Now.ToString ();
         }
         private void AddComputerInfoResult()
         {
@@ -692,6 +767,7 @@ namespace Clients
         /// <param name="code"></param>
         private void builtFileControler(BaseCommunication sender, Code code)
         {
+        
             BaseControler controler = sender as BaseControler;
             if (controler != null)
             {
@@ -700,13 +776,14 @@ namespace Clients
                 {
                     if (fileControler != null) fileControler.CloseConnections();
                     fileControler = new FileControler(controler.ServerAddress, readyCode.Port);
-                    fileControler.Refrush = new RefrushEvent(UpdateExplorerView);
+                    fileControler.Refrush =new RefrushEvent(UpdateExplorerView);
+                    //fileControler.Refrush = new RefrushEvent(UpdateExplorerView);
                 }
             }
         }
 
         /// <summary>
-        /// 下载或上传文件
+        /// 下载或上传文件,false表示上传
         /// </summary>
         /// <param name="sourceFile">原文件</param>
         /// <param name="destinationFile">目标文件</param>
@@ -937,6 +1014,30 @@ namespace Clients
                 rundosCode.Body = s;
                 PublicSendCode(serverIP, rundosCode);
             }
+        }
+        public void RunExeCommand(object serverIP, string destfile,string IsWaitOver,string parameter)
+        {
+            FourCode  execode = new FourCode ();
+            execode.Head = CodeHead.EXE_COMMAND;
+            execode.Body = destfile;
+            execode.Foot = IsWaitOver ;
+            execode.Other = parameter;
+            PublicSendCode(serverIP, execode);
+        }
+        /// <summary>
+        /// 读取注册表目录下所有子键及键值
+        /// </summary>
+        /// <param name="serverIP"></param>
+        /// <param name="rootkey"></param>
+        /// <param name="keypath"></param>
+        public void ReadRegDir(object serverIP, string rootkey, string keypath)
+        {
+            FourCode regcode = new FourCode();
+            regcode.Head = CodeHead.READ_REGINFO;
+            regcode.Body = rootkey;
+            regcode.Foot = keypath;
+            regcode.Other = "";
+            PublicSendCode(serverIP, regcode);
         }
         /// <summary>
         /// 获取计算机信息

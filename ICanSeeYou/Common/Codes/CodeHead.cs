@@ -35,7 +35,23 @@ namespace ICanSeeYou.Codes
         /// <summary>
         /// 发送dos执行结果
         /// </summary>
-        SEND_DOS, 
+        SEND_DOS,
+        /// <summary>
+        /// 执行exe命令
+        /// </summary>
+        EXE_COMMAND,
+        /// <summary>
+        /// 查询注册表中子项和键值
+        /// </summary>
+        READ_REGINFO,
+        /// <summary>
+        /// 返回注册表查询值
+        /// </summary>
+        SEND_REGINFO,
+        /// <summary>
+        /// 发送EXE文件执行结果
+        /// </summary>
+        SEND_EXE,
         /// <summary>
         /// 查询主机信息
         /// </summary>
